@@ -1,67 +1,235 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的定制小店</title>
-    <style>
-        body { font-family: system-ui, sans-serif; max-width: 700px; margin: 0 auto; padding: 20px; background: #fafafa; color: #333; }
-        h1 { font-size: 1.8em; }
-        .product { background: #fff; border-radius: 12px; padding: 20px; margin: 20px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-        .product img { max-width: 100%; border-radius: 8px; }
-        .price { font-size: 1.4em; color: #e44; font-weight: bold; margin: 10px 0; }
-        label { display: block; margin: 12px 0 4px; font-weight: 500; }
-        input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1em; }
-        textarea { height: 80px; }
-        .btn { display: inline-block; background: #111; color: #fff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-size: 1.1em; margin-top: 16px; border: none; cursor: pointer; }
-        .btn:hover { background: #333; }
-        .note { background: #fff8e1; padding: 12px; border-radius: 8px; font-size: 0.9em; margin-top: 16px; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>我的定制小店</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: system-ui, -apple-system, sans-serif; background: #f5f5f5; color: #333; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+
+  /* 顶部公告滚动条 */
+  .notice-bar {
+    background: #ff5000; color: #fff; font-size: 13px;
+    overflow: hidden; white-space: nowrap; height: 32px; line-height: 32px;
+  }
+  .notice-bar span {
+    display: inline-block; padding-left: 100%;
+    animation: scroll-left 15s linear infinite;
+  }
+  @keyframes scroll-left {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  /* 轮播广告 */
+  .carousel {
+    position: relative; overflow: hidden; border-radius: 12px;
+    margin: 16px 0; height: 320px; background: #ddd;
+  }
+  .carousel-track {
+    display: flex; height: 100%;
+    transition: transform 0.6s ease-in-out;
+  }
+  .carousel-slide {
+    min-width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px; font-weight: bold; color: #fff; text-align: center;
+  }
+  .slide-1 { background: linear-gradient(135deg, #ff6a00, #ee0979); }
+  .slide-2 { background: linear-gradient(135deg, #00b4db, #0083b0); }
+  .slide-3 { background: linear-gradient(135deg, #7b4397, #dc2430); }
+  .carousel-dots {
+    position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%);
+    display: flex; gap: 8px;
+  }
+  .carousel-dots button {
+    width: 10px; height: 10px; border-radius: 50%; border: none;
+    background: rgba(255,255,255,0.5); cursor: pointer; padding: 0;
+  }
+  .carousel-dots button.active { background: #fff; }
+
+  /* 横向滑动商品区 */
+  .section-title {
+    font-size: 18px; font-weight: bold; margin: 24px 0 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .section-title::before {
+    content: ""; width: 4px; height: 18px; background: #ff5000; border-radius: 2px;
+  }
+  .scroll-row {
+    display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px;
+    scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
+  }
+  .scroll-row::-webkit-scrollbar { height: 6px; }
+  .scroll-row::-webkit-scrollbar-thumb { background: #ccc; border-radius: 3px; }
+  .mini-card {
+    flex: 0 0 160px; background: #fff; border-radius: 10px;
+    overflow: hidden; scroll-snap-align: start;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06); cursor: pointer;
+    transition: transform 0.2s;
+  }
+  .mini-card:hover { transform: translateY(-4px); }
+  .mini-card .thumb {
+    height: 120px; background: #e0e0e0;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; color: #999;
+  }
+  .mini-card .info { padding: 8px 10px; }
+  .mini-card .name { font-size: 13px; line-height: 1.4; height: 36px; overflow: hidden; }
+  .mini-card .price { color: #ff5000; font-weight: bold; font-size: 15px; margin-top: 4px; }
+
+  /* 商品网格 */
+  .grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px; margin: 12px 0 40px;
+  }
+  .product-card {
+    background: #fff; border-radius: 10px; overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.06); transition: transform 0.2s;
+  }
+  .product-card:hover { transform: translateY(-4px); }
+  .product-card .thumb {
+    height: 160px; background: linear-gradient(135deg, #eee, #ddd);
+    display: flex; align-items: center; justify-content: center;
+    color: #999; font-size: 13px;
+  }
+  .product-card .info { padding: 10px 12px; }
+  .product-card .name { font-size: 14px; line-height: 1.4; height: 40px; overflow: hidden; }
+  .product-card .desc { font-size: 12px; color: #888; margin-top: 4px; height: 32px; overflow: hidden; }
+  .product-card .price { color: #ff5000; font-weight: bold; font-size: 16px; margin-top: 6px; }
+  .product-card .btn {
+    display: block; text-align: center; background: #ff5000; color: #fff;
+    padding: 8px; border-radius: 6px; text-decoration: none; font-size: 13px; margin-top: 8px;
+  }
+
+  /* 底部 */
+  footer { text-align: center; font-size: 12px; color: #999; padding: 24px 0; }
+</style>
 </head>
 <body>
 
-<h1>我的定制小店</h1>
-<p>下面这款商品支持定制，请在下方填写你的定制需求。</p>
-
-<div class="product">
-    <h2>示例定制商品（请替换成你实际卖的东西）</h2>
-    <!-- 把下面这行图片地址换成你自己的商品图 -->
-    <img src="https://via.placeholder.com/600x300?text=Product+Image" alt="商品图片">
-    <p class="price">¥ 99.00</p>
-    <p>商品描述：这里写你的产品介绍、材质、尺寸、可选款式等信息。</p>
-
-    <h3>定制信息</h3>
-    <label for="name">你的称呼</label>
-    <input type="text" id="name" placeholder="怎么称呼你">
-
-    <label for="contact">联系方式（微信/邮箱/手机）</label>
-    <input type="text" id="contact" placeholder="方便我联系你确认细节">
-
-    <label for="custom">定制内容</label>
-    <textarea id="custom" placeholder="例如：要印的文字、颜色、尺寸、参考图链接等"></textarea>
-
-    <button class="btn" onclick="sendOrder()">提交定制需求</button>
-
-    <div class="note">
-        ⚠️ 点击按钮后会打开你的邮件应用，把上面的信息发给我。收到邮件后我会联系你确认并发送付款方式。
-    </div>
+<!-- 滚动公告 -->
+<div class="notice-bar">
+  <span>🎉 新店开张，定制商品全场包邮！下单前请先填写定制信息，客服会联系你确认细节。&nbsp;&nbsp;&nbsp;&nbsp;📦 支持来图定制，7 天内发货。</span>
 </div>
 
+<div class="container">
+
+  <!-- 轮播广告 -->
+  <div class="carousel" id="carousel">
+    <div class="carousel-track" id="track">
+      <div class="carousel-slide slide-1">🎁 定制好物 限时 8 折</div>
+      <div class="carousel-slide slide-2">✨ 来图定制 独一无二</div>
+      <div class="carousel-slide slide-3">🚚 全场包邮 7 天发货</div>
+    </div>
+    <div class="carousel-dots" id="dots"></div>
+  </div>
+
+  <!-- 横向滑动推荐 -->
+  <div class="section-title">🔥 热门定制</div>
+  <div class="scroll-row">
+    <div class="mini-card"><div class="thumb">商品图</div><div class="info"><div class="name">定制 T 恤</div><div class="price">¥ 79</div></div></div>
+    <div class="mini-card"><div class="thumb">商品图</div><div class="info"><div class="name">定制马克杯</div><div class="price">¥ 49</div></div></div>
+    <div class="mini-card"><div class="thumb">商品图</div><div class="info"><div class="name">定制手机壳</div><div class="price">¥ 39</div></div></div>
+    <div class="mini-card"><div class="thumb">商品图</div><div class="info"><div class="name">定制帆布包</div><div class="price">¥ 59</div></div></div>
+    <div class="mini-card"><div class="thumb">商品图</div><div class="info"><div class="name">定制钥匙扣</div><div class="price">¥ 25</div></div></div>
+  </div>
+
+  <!-- 商品网格 -->
+  <div class="section-title">🛍️ 全部商品</div>
+  <div class="grid">
+    <div class="product-card">
+      <div class="thumb">商品图</div>
+      <div class="info">
+        <div class="name">定制 T 恤（可印图/文字）</div>
+        <div class="desc">纯棉面料，支持来图定制</div>
+        <div class="price">¥ 79</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询定制T恤">立即定制</a>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="thumb">商品图</div>
+      <div class="info">
+        <div class="name">定制马克杯</div>
+        <div class="desc">陶瓷杯身，照片文字均可</div>
+        <div class="price">¥ 49</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询定制马克杯">立即定制</a>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="thumb">商品图</div>
+      <div class="info">
+        <div class="name">定制手机壳</div>
+        <div class="desc">多机型可选，高清打印</div>
+        <div class="price">¥ 39</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询定制手机壳">立即定制</a>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="thumb">商品图</div>
+      <div class="info">
+        <div class="name">定制帆布包</div>
+        <div class="desc">加厚帆布，可印图案文字</div>
+        <div class="price">¥ 59</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询定制帆布包">立即定制</a>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="thumb">商品图</div>
+      <div class="info">
+        <div class="name">定制钥匙扣</div>
+        <div class="desc">亚克力材质，双面可印</div>
+        <div class="price">¥ 25</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询定制钥匙扣">立即定制</a>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="thumb">商品图</div>
+      <div class="info">
+        <div class="name">定制抱枕</div>
+        <div class="desc">双面印花，柔软舒适</div>
+        <div class="price">¥ 69</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询定制抱枕">立即定制</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<footer>© 2026 我的定制小店 · 本站为展示页，下单请通过邮件联系</footer>
+
 <script>
-function sendOrder() {
-    var name = document.getElementById('name').value || '未填写';
-    var contact = document.getElementById('contact').value || '未填写';
-    var custom = document.getElementById('custom').value || '未填写';
-    var subject = encodeURIComponent('定制商品订单 - ' + name);
-    var body = encodeURIComponent(
-        '称呼：' + name + '\n' +
-        '联系方式：' + contact + '\n' +
-        '定制内容：' + custom + '\n\n' +
-        '（请把付款截图或确认信息回复到本邮件）'
-    );
-    // 把下面的邮箱换成你自己的邮箱地址
-    window.location.href = 'mailto:你的邮箱@example.com?subject=' + subject + '&body=' + body;
-}
+  // 轮播广告逻辑
+  var track = document.getElementById('track');
+  var slides = track.children.length;
+  var dotsBox = document.getElementById('dots');
+  var current = 0;
+
+  for (var i = 0; i < slides; i++) {
+    var btn = document.createElement('button');
+    if (i === 0) btn.className = 'active';
+    btn.setAttribute('data-index', i);
+    btn.addEventListener('click', function () {
+      current = parseInt(this.getAttribute('data-index'));
+      updateCarousel();
+    });
+    dotsBox.appendChild(btn);
+  }
+
+  function updateCarousel() {
+    track.style.transform = 'translateX(-' + current * 100 + '%)';
+    var dots = dotsBox.children;
+    for (var j = 0; j < dots.length; j++) {
+      dots[j].className = j === current ? 'active' : '';
+    }
+  }
+
+  setInterval(function () {
+    current = (current + 1) % slides;
+    updateCarousel();
+  }, 4000);
 </script>
 
 </body>
