@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>我的定制小店</title>
+<title>动物定制作画</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: system-ui, -apple-system, sans-serif; background: #f5f5f5; color: #333; }
@@ -55,6 +55,21 @@
   .section-title::before {
     content: ""; width: 4px; height: 18px; background: #ff5000; border-radius: 2px;
   }
+
+  /* 分类筛选按钮 */
+  .filter-bar {
+    display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0 20px;
+  }
+  .filter-btn {
+    padding: 8px 18px; border-radius: 20px; border: 1px solid #ddd;
+    background: #fff; color: #555; font-size: 14px; cursor: pointer;
+    transition: all 0.2s;
+  }
+  .filter-btn:hover { border-color: #ff5000; color: #ff5000; }
+  .filter-btn.active {
+    background: #ff5000; color: #fff; border-color: #ff5000;
+  }
+
   .scroll-row {
     display: flex; gap: 12px; overflow-x: auto; padding-bottom: 8px;
     scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;
@@ -99,6 +114,9 @@
     display: block; text-align: center; background: #ff5000; color: #fff;
     padding: 8px; border-radius: 6px; text-decoration: none; font-size: 13px; margin-top: 8px;
   }
+  .empty-tip {
+    display: none; text-align: center; color: #999; padding: 40px 0; font-size: 14px;
+  }
 
   .contact-box {
     display: flex;
@@ -107,123 +125,160 @@
     flex-wrap: wrap;
     margin-bottom: 20px;
   }
-  .contact-item {
-    text-align: center;
-    font-size: 13px;
-  }
-  .contact-item p {
-    margin: 8px 0 4px;
-    font-weight: 500;
-  }
-  .contact-item a {
-    color: #ff5000;
-    text-decoration: none;
-    word-break: break-all;
-  }
+  .contact-item { text-align: center; font-size: 13px; }
+  .contact-item p { margin: 8px 0 4px; font-weight: 500; }
+  .contact-item a { color: #ff5000; text-decoration: none; word-break: break-all; }
   .qr-placeholder {
-    width: 120px;
-    height: 120px;
-    background: #eee;
-    border: 1px dashed #bbb;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #999;
-    font-size: 12px;
-    margin: 0 auto;
+    width: 120px; height: 120px; background: #eee;
+    border: 1px dashed #bbb; border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    color: #999; font-size: 12px; margin: 0 auto;
   }
   .footer-note {
-    text-align: center;
-    font-size: 12px;
-    color: #999;
-    padding: 12px 0 24px;
+    text-align: center; font-size: 12px; color: #999; padding: 12px 0 24px;
   }
 </style>
 </head>
 <body>
 
 <div class="notice-bar">
-  <span>🎉 新店开张，定制商品全场包邮！下单前请先填写定制信息，客服会联系你确认细节。&nbsp;&nbsp;&nbsp;&nbsp;📦 支持来图定制，7 天内发货。</span>
+  <span>🎨 动物定制作画 · 来图定制你喜欢的动物 · 支持猫、狗、鸟、野生猛兽等分类 · 下单前请先联系客服确认细节</span>
 </div>
 
 <div class="container">
 
   <div class="carousel" id="carousel">
     <div class="carousel-track" id="track">
-      <div class="carousel-slide slide-1">🎁 定制好物 限时 8 折</div>
-      <div class="carousel-slide slide-2">✨ 来图定制 独一无二</div>
-      <div class="carousel-slide slide-3">🚚 全场包邮 7 天发货</div>
+      <div class="carousel-slide slide-1">🐱 猫咪定制作画</div>
+      <div class="carousel-slide slide-2">🐶 狗狗定制肖像</div>
+      <div class="carousel-slide slide-3">🦁 野生猛兽系列</div>
     </div>
     <div class="carousel-dots" id="dots"></div>
   </div>
 
-  <div class="section-title">🔥 热门定制</div>
-  <div class="scroll-row">
-    <div class="mini-card"><div class="thumb">商品图</div><div class="info"><div class="name">定制 T 恤</div><div class="price">¥ 79</div></div></div>
-    <div class="mini-card"><div class="thumb">商品图</div><div class="info"><div class="name">定制马克杯</div><div class="price">¥ 49</div></div></div>
-    <div class="mini-card"><div class="thumb">商品图</div><div class="info"><div class="name">定制手机壳</div><div class="price">¥ 39</div></div></div>
-    <div class="mini-card"><div class="thumb">商品图</div><div class="info"><div class="name">定制帆布包</div><div class="price">¥ 59</div></div></div>
-    <div class="mini-card"><div class="thumb">商品图</div><div class="info"><div class="name">定制钥匙扣</div><div class="price">¥ 25</div></div></div>
+  <div class="section-title">🔍 按动物分类挑选</div>
+  <div class="filter-bar" id="filterBar">
+    <button class="filter-btn active" data-cat="all">全部</button>
+    <button class="filter-btn" data-cat="cat">🐱 猫</button>
+    <button class="filter-btn" data-cat="dog">🐶 狗</button>
+    <button class="filter-btn" data-cat="bird">🐦 鸟</button>
+    <button class="filter-btn" data-cat="wild">🦁 野生猛兽</button>
+    <button class="filter-btn" data-cat="small">🐹 小宠</button>
   </div>
 
-  <div class="section-title">🛍️ 全部商品</div>
-  <div class="grid">
-    <div class="product-card">
-      <div class="thumb">商品图</div>
+  <div class="section-title">🔥 热门定制</div>
+  <div class="scroll-row">
+    <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">猫咪水彩肖像</div><div class="price">¥ 199</div></div></div>
+    <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">狗狗油画定制</div><div class="price">¥ 259</div></div></div>
+    <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">鹦鹉插画</div><div class="price">¥ 159</div></div></div>
+    <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">狮子素描</div><div class="price">¥ 299</div></div></div>
+    <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">仓鼠小像</div><div class="price">¥ 129</div></div></div>
+  </div>
+
+  <div class="section-title">🛍️ 全部作品</div>
+  <div class="grid" id="productGrid">
+    <!-- 猫 -->
+    <div class="product-card" data-cat="cat">
+      <div class="thumb">作品图</div>
       <div class="info">
-        <div class="name">定制 T 恤（可印图/文字）</div>
-        <div class="desc">纯棉面料，支持来图定制</div>
-        <div class="price">¥ 79</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询定制T恤">立即定制</a>
+        <div class="name">猫咪水彩肖像定制</div>
+        <div class="desc">根据照片绘制，A4 装裱</div>
+        <div class="price">¥ 199</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询猫咪水彩肖像">立即定制</a>
       </div>
     </div>
-    <div class="product-card">
-      <div class="thumb">商品图</div>
+    <div class="product-card" data-cat="cat">
+      <div class="thumb">作品图</div>
       <div class="info">
-        <div class="name">定制马克杯</div>
-        <div class="desc">陶瓷杯身，照片文字均可</div>
-        <div class="price">¥ 49</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询定制马克杯">立即定制</a>
+        <div class="name">多猫家庭合影定制</div>
+        <div class="desc">2-4 只猫同框，水彩风格</div>
+        <div class="price">¥ 329</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询多猫合影定制">立即定制</a>
       </div>
     </div>
-    <div class="product-card">
-      <div class="thumb">商品图</div>
+
+    <!-- 狗 -->
+    <div class="product-card" data-cat="dog">
+      <div class="thumb">作品图</div>
       <div class="info">
-        <div class="name">定制手机壳</div>
-        <div class="desc">多机型可选，高清打印</div>
-        <div class="price">¥ 39</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询定制手机壳">立即定制</a>
+        <div class="name">狗狗油画肖像定制</div>
+        <div class="desc">厚涂油画质感，含画框</div>
+        <div class="price">¥ 259</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询狗狗油画肖像">立即定制</a>
       </div>
     </div>
-    <div class="product-card">
-      <div class="thumb">商品图</div>
+    <div class="product-card" data-cat="dog">
+      <div class="thumb">作品图</div>
       <div class="info">
-        <div class="name">定制帆布包</div>
-        <div class="desc">加厚帆布，可印图案文字</div>
-        <div class="price">¥ 59</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询定制帆布包">立即定制</a>
+        <div class="name">狗狗卡通头像</div>
+        <div class="desc">Q 版卡通风格，适合做头像</div>
+        <div class="price">¥ 99</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询狗狗卡通头像">立即定制</a>
       </div>
     </div>
-    <div class="product-card">
-      <div class="thumb">商品图</div>
+
+    <!-- 鸟 -->
+    <div class="product-card" data-cat="bird">
+      <div class="thumb">作品图</div>
       <div class="info">
-        <div class="name">定制钥匙扣</div>
-        <div class="desc">亚克力材质，双面可印</div>
-        <div class="price">¥ 25</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询定制钥匙扣">立即定制</a>
+        <div class="name">鹦鹉插画定制</div>
+        <div class="desc">细腻线稿 + 上色，A4 尺寸</div>
+        <div class="price">¥ 159</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询鹦鹉插画定制">立即定制</a>
       </div>
     </div>
-    <div class="product-card">
-      <div class="thumb">商品图</div>
+    <div class="product-card" data-cat="bird">
+      <div class="thumb">作品图</div>
       <div class="info">
-        <div class="name">定制抱枕</div>
-        <div class="desc">双面印花，柔软舒适</div>
-        <div class="price">¥ 69</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询定制抱枕">立即定制</a>
+        <div class="name">小型观赏鸟肖像</div>
+        <div class="desc">写实风格，可加背景</div>
+        <div class="price">¥ 139</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询观赏鸟肖像">立即定制</a>
+      </div>
+    </div>
+
+    <!-- 野生猛兽 -->
+    <div class="product-card" data-cat="wild">
+      <div class="thumb">作品图</div>
+      <div class="info">
+        <div class="name">狮子素描定制</div>
+        <div class="desc">炭笔素描，大幅面可选</div>
+        <div class="price">¥ 299</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询狮子素描定制">立即定制</a>
+      </div>
+    </div>
+    <div class="product-card" data-cat="wild">
+      <div class="thumb">作品图</div>
+      <div class="info">
+        <div class="name">老虎水彩定制</div>
+        <div class="desc">霸气虎纹，水彩晕染风格</div>
+        <div class="price">¥ 319</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询老虎水彩定制">立即定制</a>
+      </div>
+    </div>
+
+    <!-- 小宠 -->
+    <div class="product-card" data-cat="small">
+      <div class="thumb">作品图</div>
+      <div class="info">
+        <div class="name">仓鼠小像定制</div>
+        <div class="desc">迷你尺寸，适合桌面摆放</div>
+        <div class="price">¥ 129</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询仓鼠小像定制">立即定制</a>
+      </div>
+    </div>
+    <div class="product-card" data-cat="small">
+      <div class="thumb">作品图</div>
+      <div class="info">
+        <div class="name">兔子水彩肖像</div>
+        <div class="desc">温柔色调，可加姓名</div>
+        <div class="price">¥ 149</div>
+        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询兔子水彩肖像">立即定制</a>
       </div>
     </div>
   </div>
+
+  <div class="empty-tip" id="emptyTip">这个分类下暂时没有作品，试试其他分类吧。</div>
 
 </div>
 
@@ -240,10 +295,11 @@
       <a href="https://wa.me/你的WhatsApp号码" target="_blank" rel="noopener">点击跳转 WhatsApp</a>
     </div>
   </div>
-  <p class="footer-note">© 2026 我的定制小店 · 本站为展示页，下单请通过邮件或 WhatsApp 联系</p>
+  <p class="footer-note">© 2026 动物定制作画 · 本站为展示页，下单请通过邮件或 WhatsApp 联系</p>
 </footer>
 
 <script>
+  // 轮播
   var track = document.getElementById('track');
   var slides = track.children.length;
   var dotsBox = document.getElementById('dots');
@@ -272,6 +328,39 @@
     current = (current + 1) % slides;
     updateCarousel();
   }, 4000);
+
+  // 分类筛选
+  var filterBar = document.getElementById('filterBar');
+  var cards = document.querySelectorAll('#productGrid .product-card');
+  var emptyTip = document.getElementById('emptyTip');
+
+  filterBar.addEventListener('click', function (e) {
+    var btn = e.target.closest('.filter-btn');
+    if (!btn) return;
+
+    var cat = btn.getAttribute('data-cat');
+
+    // 切换按钮激活状态
+    var allBtns = filterBar.querySelectorAll('.filter-btn');
+    for (var i = 0; i < allBtns.length; i++) {
+      allBtns[i].classList.remove('active');
+    }
+    btn.classList.add('active');
+
+    // 筛选卡片
+    var visibleCount = 0;
+    for (var k = 0; k < cards.length; k++) {
+      var cardCat = cards[k].getAttribute('data-cat');
+      if (cat === 'all' || cardCat === cat) {
+        cards[k].style.display = '';
+        visibleCount++;
+      } else {
+        cards[k].style.display = 'none';
+      }
+    }
+
+    emptyTip.style.display = visibleCount === 0 ? 'block' : 'none';
+  });
 </script>
 
 </body>
