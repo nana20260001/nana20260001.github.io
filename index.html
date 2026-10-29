@@ -16,7 +16,6 @@
   .top-logo { font-size: 28px; font-weight: 700; font-style: italic; font-family: "Georgia", serif; letter-spacing: 1px; }
   .top-icons { display: flex; align-items: center; gap: 20px; font-size: 14px; font-weight: 500; }
   .top-icons svg { width: 22px; height: 22px; fill: #fff; cursor: pointer; transition: opacity 0.2s; }
-  .top-icons svg:hover { opacity: 0.8; }
   
   .nav-bar { background-color: #fff; border-bottom: 1px solid #eee; display: flex; justify-content: center; padding: 20px 0; position: sticky; top: 0; z-index: 100; }
   .nav-menu { display: flex; gap: 50px; font-size: 16px; font-weight: 600; color: #333; }
@@ -28,8 +27,6 @@
   .hero { position: relative; height: 75vh; min-height: 600px; overflow: hidden; background: #000; }
   .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; display: flex; align-items: center; justify-content: center; }
   .hero-slide.active { opacity: 1; z-index: 1; }
-  
-  /* 首屏背景图 */
   .hero-slide img.hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
   .hero-slide::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.35); }
 
@@ -56,7 +53,6 @@
   
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
   .product-card { text-align: center; }
-  /* 产品卡片图片容器 */
   .product-card .img-box { height: 320px; background: #f5f5f5; margin-bottom: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; color: #999; }
   .product-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
   .product-card:hover img { transform: scale(1.05); }
@@ -77,28 +73,25 @@
   .community p.review { font-size: 22px; line-height: 1.6; color: #444; font-style: italic; margin-bottom: 30px; }
   .community .author { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: #888; }
 
-  /* --- 全新底部深色栏 (收窄版) --- */
-  .footer { background: #1a1a1a; color: #b0b0b0; padding: 60px 20px 20px; font-size: 14px; }
-  /* 将总宽度限制在 1000px，显得更窄、更聚拢 */
-  .footer-inner { max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; }
+  /* --- 瘦身版紧凑底部 (修改了这里的 padding 和尺寸) --- */
+  .footer { background: #1a1a1a; color: #b0b0b0; padding: 30px 20px 15px; font-size: 13px; }
+  .footer-inner { max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 20px; }
   
-  .footer-col { flex: 1; min-width: 180px; }
-  .footer-col h4 { color: #fff; font-size: 15px; margin-bottom: 20px; font-weight: 600; letter-spacing: 1px; }
+  .footer-col h4 { color: #fff; font-size: 14px; margin-bottom: 10px; font-weight: 600; }
   
-  .contact-list li { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; }
-  .contact-list .icon { font-size: 15px; margin-top: 2px; }
+  .contact-list li { margin-bottom: 6px; display: flex; align-items: center; gap: 8px; font-size: 12px; }
   .contact-list a:hover { color: #f57a8d; }
 
-  .footer-links li { margin-bottom: 10px; font-size: 13px; }
-  .footer-links a { transition: color 0.3s; }
+  .footer-links { display: flex; gap: 15px; }
+  .footer-links a { font-size: 12px; transition: color 0.3s; }
   .footer-links a:hover { color: #f57a8d; }
 
-  .qr-box { text-align: center; }
-  /* 二维码容器尺寸 */
-  .qr-placeholder { width: 120px; height: 120px; background: #fff; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: #333; font-weight: bold; font-size: 13px; overflow: hidden; }
+  .qr-box { display: flex; align-items: center; gap: 15px; }
+  /* 二维码尺寸缩小到 60x60 */
+  .qr-placeholder { width: 60px; height: 60px; background: #fff; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: #333; font-weight: bold; font-size: 10px; overflow: hidden; }
   .qr-placeholder img { width: 100%; height: 100%; object-fit: cover; }
   
-  .footer-bottom { text-align: center; padding-top: 25px; margin-top: 40px; border-top: 1px solid #333; font-size: 12px; color: #666; }
+  .footer-bottom { text-align: center; padding-top: 15px; margin-top: 20px; border-top: 1px solid #333; font-size: 12px; color: #666; }
 
   /* 悬浮 WhatsApp */
   .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 100; transition: transform 0.2s; }
@@ -111,8 +104,10 @@
     .nav-menu { gap: 20px; font-size: 14px; overflow-x: auto; padding: 0 20px; white-space: nowrap; }
     .hero-content h1 { font-size: 36px; }
     .steps-container { flex-direction: column; gap: 40px; }
-    .footer-inner { flex-direction: column; text-align: center; gap: 40px; }
+    .footer-inner { flex-direction: column; text-align: center; gap: 15px; }
+    .footer-links { justify-content: center; }
     .contact-list li { justify-content: center; }
+    .qr-box { justify-content: center; flex-direction: column; }
   }
 </style>
 </head>
@@ -146,7 +141,6 @@
   <div class="hero-arrow arrow-right" onclick="changeSlide(currentSlide + 1)">＞</div>
 
   <div class="hero-slide active">
-    <!-- 第一屏大背景图：替换 src 里的链接为你自己的图片 -->
     <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" class="hero-bg" alt="背景图">
     <div class="hero-content">
       <h2>The best options for</h2>
@@ -157,7 +151,6 @@
   </div>
 
   <div class="hero-slide">
-    <!-- 第二屏大背景图：替换 src 里的链接为你自己的图片 -->
     <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" class="hero-bg" alt="背景图">
     <div class="hero-content">
       <h2>One-Stop Online Customize</h2>
@@ -177,43 +170,22 @@
 <div class="section" id="products">
   <h2 class="section-title">Most Popular</h2>
   <div class="grid">
-    
     <div class="product-card">
-      <div class="img-box">
-        <!-- 产品图 1：替换 src 里的链接 -->
-        <img src="你的图片链接1.jpg" alt="猫咪水彩">
-      </div>
-      <h3>猫咪水彩肖像</h3>
-      <p>完美呈现毛孩子的温柔瞬间</p>
+      <div class="img-box"><img src="你的图片链接1.jpg" alt="猫咪水彩"></div>
+      <h3>猫咪水彩肖像</h3><p>完美呈现毛孩子的温柔瞬间</p>
     </div>
-
     <div class="product-card">
-      <div class="img-box">
-        <!-- 产品图 2：替换 src 里的链接 -->
-        <img src="你的图片链接2.jpg" alt="狗狗油画">
-      </div>
-      <h3>狗狗油画定制</h3>
-      <p>厚涂质感，高端装裱</p>
+      <div class="img-box"><img src="你的图片链接2.jpg" alt="狗狗油画"></div>
+      <h3>狗狗油画定制</h3><p>厚涂质感，高端装裱</p>
     </div>
-
     <div class="product-card">
-      <div class="img-box">
-        <!-- 产品图 3：替换 src 里的链接 -->
-        <img src="你的图片链接3.jpg" alt="鹦鹉插画">
-      </div>
-      <h3>鹦鹉艺术插画</h3>
-      <p>色彩细腻，生动活泼</p>
+      <div class="img-box"><img src="你的图片链接3.jpg" alt="鹦鹉插画"></div>
+      <h3>鹦鹉艺术插画</h3><p>色彩细腻，生动活泼</p>
     </div>
-
     <div class="product-card">
-      <div class="img-box">
-        <!-- 产品图 4：替换 src 里的链接 -->
-        <img src="你的图片链接4.jpg" alt="猛兽素描">
-      </div>
-      <h3>猛兽素描系列</h3>
-      <p>大幅面创作，展现野性之美</p>
+      <div class="img-box"><img src="你的图片链接4.jpg" alt="猛兽素描"></div>
+      <h3>猛兽素描系列</h3><p>大幅面创作，展现野性之美</p>
     </div>
-
   </div>
 </div>
 
@@ -221,21 +193,9 @@
 <div class="steps-bg" id="steps">
   <h2 class="section-title">Custom Art in 3 Easy Steps</h2>
   <div class="steps-container">
-    <div class="step-item">
-      <div class="icon">🖼️</div>
-      <h3>Select a Product</h3>
-      <p>Choose from our wide<br>variety of styles</p>
-    </div>
-    <div class="step-item">
-      <div class="icon">📐</div>
-      <h3>Pick Your Size</h3>
-      <p>Small, Medium or Large,<br>the choice is yours</p>
-    </div>
-    <div class="step-item">
-      <div class="icon">📤</div>
-      <h3>Upload and Adjust</h3>
-      <p>Upload your image and<br>make it just right</p>
-    </div>
+    <div class="step-item"><div class="icon">🖼️</div><h3>Select a Product</h3><p>Choose from our wide<br>variety of styles</p></div>
+    <div class="step-item"><div class="icon">📐</div><h3>Pick Your Size</h3><p>Small, Medium or Large,<br>the choice is yours</p></div>
+    <div class="step-item"><div class="icon">📤</div><h3>Upload and Adjust</h3><p>Upload your image and<br>make it just right</p></div>
   </div>
 </div>
 
@@ -246,38 +206,45 @@
   <div class="author">— A Happy Pet Owner</div>
 </div>
 
-<!-- 底部深色栏 -->
+<!-- 瘦身版底部深色栏 -->
 <footer class="footer">
   <div class="footer-inner">
     
-    <div class="footer-col" style="flex: 1.2;">
-      <h4>PetArt Studio</h4>
-      <p style="font-size: 13px;">专注高端宠物与野生动物定制作画。我们将您珍爱的毛孩子以最艺术的形式定格在画布上。</p>
-    </div>
-
+    <!-- 品牌 -->
     <div class="footer-col">
-      <h4>快捷链接</h4>
-      <ul class="footer-links">
-        <li><a href="#">关于我们</a></li>
-        <li><a href="#">定制流程</a></li>
-        <li><a href="#">常见问题</a></li>
-      </ul>
+      <h4>PetArt Studio</h4>
+      <p>专注高端宠物与野生动物定制作画。</p>
     </div>
 
+    <!-- 联系 -->
     <div class="footer-col">
       <h4>联系我们</h4>
       <ul class="contact-list">
-        <li><span class="icon">📞</span> <span>+86 138 0000 0000</span></li>
-        <li><span class="icon">💬</span> <a href="https://wa.me/你的WhatsApp号码" target="_blank">WhatsApp: +86 138 0000 0000</a></li>
-        <li><span class="icon">✉️</span> <a href="mailto:你的邮箱@example.com">你的邮箱@example.com</a></li>
+        <li><a href="tel:+8613800000000">📞 +86 138 0000 0000</a></li>
+        <li><a href="https://wa.me/你的WhatsApp号码" target="_blank">💬 WhatsApp: +86 138 0000 0000</a></li>
+        <li><a href="mailto:你的邮箱@example.com">✉️ 你的邮箱@example.com</a></li>
       </ul>
     </div>
 
+    <!-- 快捷链接 -->
+    <div class="footer-col">
+      <h4>快捷链接</h4>
+      <div class="footer-links">
+        <a href="#">关于我们</a>
+        <a href="#">定制流程</a>
+        <a href="#">常见问题</a>
+      </div>
+    </div>
+
+    <!-- 二维码 (横向排列) -->
     <div class="footer-col qr-box">
-      <h4>WhatsApp 客服</h4>
       <div class="qr-placeholder">
-        <!-- 二维码图片：将下面这行文字替换为 <img src="你的二维码图片链接.jpg" alt="WhatsApp QR"> -->
-        二维码
+        <!-- 替换二维码图片 -->
+        <img src="你的二维码图片链接.jpg" alt="QR">
+      </div>
+      <div>
+        <h4 style="margin: 0 0 5px 0;">WhatsApp 客服</h4>
+        <p style="font-size: 12px; color: #888;">扫码添加</p>
       </div>
     </div>
 
@@ -304,12 +271,10 @@
     if (index >= totalSlides) currentSlide = 0;
     else if (index < 0) currentSlide = totalSlides - 1;
     else currentSlide = index;
-
     slides.forEach((slide, i) => {
       slide.classList.remove('active');
       indicators[i].classList.remove('active');
     });
-
     slides[currentSlide].classList.add('active');
     indicators[currentSlide].classList.add('active');
   }
@@ -325,7 +290,6 @@
     showSlide(index);
     startSlideShow();
   }
-
   startSlideShow();
 </script>
 
