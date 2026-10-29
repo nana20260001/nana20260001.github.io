@@ -1,11 +1,68 @@
 <!DOCTYPE html>
-<html>
+<html lang="zh-CN">
 <head>
-    <title>我的练手小店</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的定制小店</title>
+    <style>
+        body { font-family: system-ui, sans-serif; max-width: 700px; margin: 0 auto; padding: 20px; background: #fafafa; color: #333; }
+        h1 { font-size: 1.8em; }
+        .product { background: #fff; border-radius: 12px; padding: 20px; margin: 20px 0; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .product img { max-width: 100%; border-radius: 8px; }
+        .price { font-size: 1.4em; color: #e44; font-weight: bold; margin: 10px 0; }
+        label { display: block; margin: 12px 0 4px; font-weight: 500; }
+        input, textarea { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; font-size: 1em; }
+        textarea { height: 80px; }
+        .btn { display: inline-block; background: #111; color: #fff; padding: 14px 28px; border-radius: 8px; text-decoration: none; font-size: 1.1em; margin-top: 16px; border: none; cursor: pointer; }
+        .btn:hover { background: #333; }
+        .note { background: #fff8e1; padding: 12px; border-radius: 8px; font-size: 0.9em; margin-top: 16px; }
+    </style>
 </head>
 <body>
-    <h1>欢迎来到我的独立站</h1>
-    <p>这是一个免费的练手页面。</p>
-    <p>未来这里可以放商品、介绍和联系方式。</p>
+
+<h1>我的定制小店</h1>
+<p>下面这款商品支持定制，请在下方填写你的定制需求。</p>
+
+<div class="product">
+    <h2>示例定制商品（请替换成你实际卖的东西）</h2>
+    <!-- 把下面这行图片地址换成你自己的商品图 -->
+    <img src="https://via.placeholder.com/600x300?text=Product+Image" alt="商品图片">
+    <p class="price">¥ 99.00</p>
+    <p>商品描述：这里写你的产品介绍、材质、尺寸、可选款式等信息。</p>
+
+    <h3>定制信息</h3>
+    <label for="name">你的称呼</label>
+    <input type="text" id="name" placeholder="怎么称呼你">
+
+    <label for="contact">联系方式（微信/邮箱/手机）</label>
+    <input type="text" id="contact" placeholder="方便我联系你确认细节">
+
+    <label for="custom">定制内容</label>
+    <textarea id="custom" placeholder="例如：要印的文字、颜色、尺寸、参考图链接等"></textarea>
+
+    <button class="btn" onclick="sendOrder()">提交定制需求</button>
+
+    <div class="note">
+        ⚠️ 点击按钮后会打开你的邮件应用，把上面的信息发给我。收到邮件后我会联系你确认并发送付款方式。
+    </div>
+</div>
+
+<script>
+function sendOrder() {
+    var name = document.getElementById('name').value || '未填写';
+    var contact = document.getElementById('contact').value || '未填写';
+    var custom = document.getElementById('custom').value || '未填写';
+    var subject = encodeURIComponent('定制商品订单 - ' + name);
+    var body = encodeURIComponent(
+        '称呼：' + name + '\n' +
+        '联系方式：' + contact + '\n' +
+        '定制内容：' + custom + '\n\n' +
+        '（请把付款截图或确认信息回复到本邮件）'
+    );
+    // 把下面的邮箱换成你自己的邮箱地址
+    window.location.href = 'mailto:你的邮箱@example.com?subject=' + subject + '&body=' + body;
+}
+</script>
+
 </body>
 </html>
