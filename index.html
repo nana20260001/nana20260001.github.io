@@ -3,207 +3,223 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PetArt Studio - 高端动物定制作画</title>
+<title>PetArt Studio - 动物定制作画</title>
 <style>
-  /* 全局重置与基础字体 */
+  /* --- 全局基础 --- */
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Helvetica Neue', Helvetica, Arial, 'PingFang SC', 'Microsoft YaHei', sans-serif; background: #ffffff; color: #333; line-height: 1.6; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: #fff; color: #333; line-height: 1.6; }
   a { text-decoration: none; color: inherit; }
+  ul { list-style: none; }
 
-  /* --- 顶部导航 (极简) --- */
-  .header { text-align: center; padding: 25px 0; border-bottom: 1px solid #f0f0f0; }
-  .header h1 { font-size: 26px; letter-spacing: 3px; font-weight: 400; color: #1a3b2b; }
-
-  /* --- 首屏 Hero (模仿 homeinframe 的大图排版) --- */
-  .hero {
-    position: relative;
-    height: 650px;
-    background-color: #f4f1ea; /* 温暖的米色背景 */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+  /* --- 顶部导航栏 (完全照抄其极简居中布局) --- */
+  .header { 
+    position: absolute; top: 0; left: 0; width: 100%; z-index: 100; 
+    padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
+    color: #fff; /* 导航文字初始为白色以适应深色大图 */
+    transition: background 0.3s;
   }
+  .header-logo { font-size: 24px; font-weight: 700; letter-spacing: 1px; }
+  .header-nav { display: flex; gap: 30px; font-size: 14px; font-weight: 500; }
+  .header-nav a:hover { opacity: 0.8; }
+
+  /* --- 首屏轮播 Hero (全屏铺满) --- */
+  .hero { position: relative; height: 90vh; min-height: 600px; overflow: hidden; background: #000; }
+  .hero-slide {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0; transition: opacity 1s ease-in-out;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hero-slide.active { opacity: 1; z-index: 1; }
   
-  .hero-content {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    width: 100%;
-    padding: 0 40px;
-    z-index: 2;
-  }
+  /* 背景大图和暗色遮罩，让文字清晰 */
+  .hero-slide img.hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hero-slide::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); }
 
-  /* 左侧文字 */
-  .hero-text { flex: 0 0 45%; padding-right: 20px; }
-  .hero-text .subtitle { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 15px; display: block; }
-  .hero-text h2 { font-size: 52px; line-height: 1.1; color: #1a3b2b; margin-bottom: 25px; font-weight: 600; }
-  .hero-text p { font-size: 18px; color: #555; margin-bottom: 40px; max-width: 400px; }
-  .btn-primary {
-    display: inline-block; background: #d96c4a; color: #fff; /* 暖橙色按钮 */
-    padding: 16px 45px; font-size: 16px; font-weight: 500; letter-spacing: 1px;
-    border-radius: 2px; transition: background 0.3s;
+  .hero-content { position: relative; z-index: 2; text-align: center; color: #fff; max-width: 800px; padding: 0 20px; }
+  .hero-content h2 { font-size: 18px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; font-weight: 400; }
+  .hero-content h1 { font-size: 56px; line-height: 1.2; margin-bottom: 25px; font-weight: 700; }
+  .hero-content p { font-size: 18px; margin-bottom: 40px; font-weight: 300; }
+  
+  .btn { 
+    display: inline-block; background: #fff; color: #000; padding: 15px 40px; 
+    font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; 
+    transition: background 0.3s; 
   }
-  .btn-primary:hover { background: #c45837; }
+  .btn:hover { background: #eee; }
 
-  /* 右侧画作展示 */
-  .hero-image { flex: 1; display: flex; justify-content: flex-end; position: relative; }
-  .hero-image img {
-    width: 100%; max-width: 600px; height: 500px;
-    object-fit: cover;
-    box-shadow: 20px 20px 60px rgba(0,0,0,0.15); /* 高级感阴影 */
-    border: 15px solid #fff; /* 模拟装裱画框 */
-  }
+  /* 底部横线指示器 */
+  .hero-indicators { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
+  .hero-indicators span { width: 50px; height: 3px; background: rgba(255,255,255,0.4); cursor: pointer; transition: background 0.3s; }
+  .hero-indicators span.active { background: #fff; }
 
   /* 左右箭头 */
   .hero-arrow {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    color: #1a3b2b; font-size: 30px; cursor: pointer;
-    z-index: 10; opacity: 0.5; padding: 20px; transition: opacity 0.3s;
+    position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
+    color: #fff; font-size: 40px; cursor: pointer; opacity: 0.6; padding: 20px; user-select: none;
   }
   .hero-arrow:hover { opacity: 1; }
   .arrow-left { left: 20px; }
   .arrow-right { right: 20px; }
 
   /* --- 最受欢迎产品 (Most Popular) --- */
-  .section-container { max-width: 1200px; margin: 0 auto; padding: 80px 20px; text-align: center; }
-  .section-title { font-size: 32px; font-weight: 500; color: #1a3b2b; margin-bottom: 50px; }
+  .section { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
+  .section-title { text-align: center; font-size: 36px; font-weight: 600; margin-bottom: 60px; color: #1a1a1a; }
   
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 30px; }
-  .product-card { background: #fff; text-align: left; cursor: pointer; }
-  .product-card .thumb { 
-    height: 300px; background: #f9f9f9; overflow: hidden; margin-bottom: 15px;
-    display: flex; align-items: center; justify-content: center; color: #aaa;
-    transition: transform 0.3s;
-  }
-  .product-card:hover .thumb { transform: scale(1.02); }
-  .product-card .thumb img { width: 100%; height: 100%; object-fit: cover; }
-  .product-card .name { font-size: 18px; color: #333; margin-bottom: 5px; font-weight: 500; }
-  .product-card .price { font-size: 16px; color: #888; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
+  .product-card { text-align: center; }
+  .product-card .img-box { height: 320px; background: #f5f5f5; margin-bottom: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; color: #999; }
+  .product-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+  .product-card:hover img { transform: scale(1.05); }
+  .product-card h3 { font-size: 20px; font-weight: 500; margin-bottom: 10px; color: #333; }
+  .product-card p { font-size: 15px; color: #888; }
 
-  /* --- 简单三步完成定制 (Custom Art in 3 Easy Steps) --- */
-  .steps-section { background: #faf8f5; padding: 80px 20px; text-align: center; }
-  .steps-container { display: flex; justify-content: center; max-width: 1000px; margin: 0 auto; gap: 50px; flex-wrap: wrap; }
-  .step-item { flex: 1; min-width: 250px; }
-  .step-num { 
-    display: inline-block; width: 60px; height: 60px; line-height: 60px;
-    background: #fff; border: 1px solid #d96c4a; color: #d96c4a;
-    border-radius: 50%; font-size: 24px; font-weight: 600; margin-bottom: 20px;
-  }
-  .step-item h3 { font-size: 20px; color: #1a3b2b; margin-bottom: 15px; font-weight: 500; }
-  .step-item p { font-size: 15px; color: #666; }
+  /* --- 3 Steps 区块 (照抄其简单的布局) --- */
+  .steps-bg { background: #fafafa; padding: 100px 20px; }
+  .steps-container { display: flex; justify-content: space-between; max-width: 1000px; margin: 0 auto; gap: 40px; text-align: center; }
+  .step-item { flex: 1; }
+  .step-item .icon { font-size: 40px; margin-bottom: 20px; color: #d96c4a; }
+  .step-item h3 { font-size: 20px; margin-bottom: 15px; font-weight: 600; }
+  .step-item p { font-size: 15px; color: #666; line-height: 1.8; }
 
-  /* --- 底部 --- */
-  .compact-footer { background: #1a3b2b; color: #a0b0a8; padding: 40px 20px; text-align: center; font-size: 14px; line-height: 2; }
-  .compact-footer a { color: #fff; margin: 0 15px; }
-  .compact-footer a:hover { color: #d96c4a; }
-  .compact-footer .copyright { margin-top: 20px; font-size: 12px; color: #7a8c83; }
+  /* --- 客户评价 Community --- */
+  .community { text-align: center; max-width: 800px; margin: 0 auto; padding: 100px 20px; }
+  .community h2 { font-size: 32px; font-weight: 600; margin-bottom: 30px; }
+  .community p.review { font-size: 22px; line-height: 1.6; color: #444; font-style: italic; margin-bottom: 30px; }
+  .community .author { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: #888; }
+
+  /* --- 底部 Footer --- */
+  .footer { background: #111; color: #fff; padding: 60px 20px 30px; text-align: center; }
+  .footer-nav { margin-bottom: 30px; }
+  .footer-nav a { color: #ccc; margin: 0 15px; font-size: 14px; }
+  .footer-nav a:hover { color: #fff; }
+  .footer .copyright { color: #666; font-size: 13px; border-top: 1px solid #333; padding-top: 30px; margin-top: 30px; }
 
   /* 悬浮 WhatsApp */
   .whatsapp-float {
-    position: fixed; bottom: 40px; right: 40px;
-    width: 60px; height: 60px; background-color: #25d366; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
+    position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+    background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center;
     box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 100; transition: transform 0.2s;
   }
   .whatsapp-float:hover { transform: scale(1.1); }
   .whatsapp-float svg { width: 32px; height: 32px; fill: #fff; }
 
-  /* 移动端适配 */
   @media (max-width: 768px) {
-    .hero-content { flex-direction: column; padding-top: 40px; }
-    .hero-text { flex: 1; text-align: center; padding: 0; margin-bottom: 40px; }
-    .hero-text h2 { font-size: 36px; }
-    .hero-text p { margin: 0 auto 25px; }
-    .hero-image img { height: 350px; }
-    .hero-arrow { display: none; }
+    .header-nav { display: none; }
+    .hero-content h1 { font-size: 36px; }
+    .steps-container { flex-direction: column; gap: 50px; }
   }
 </style>
 </head>
 <body>
 
-<!-- 顶部简版Logo -->
+<!-- 顶部导航 (浮在首屏上面) -->
 <header class="header">
-  <h1>PetArt Studio</h1>
+  <div class="header-logo">PetArt.</div>
+  <nav class="header-nav">
+    <a href="#products">热门定制</a>
+    <a href="#steps">定制流程</a>
+    <a href="#community">客户反馈</a>
+    <a href="mailto:你的邮箱@example.com">联系我们</a>
+  </nav>
 </header>
 
-<!-- 首屏大图展示 -->
+<!-- 首屏轮播 -->
 <div class="hero">
-  <div class="hero-arrow arrow-left">＜</div>
-  <div class="hero-arrow arrow-right">＞</div>
+  <div class="hero-arrow arrow-left" onclick="changeSlide(currentSlide - 1)">＜</div>
+  <div class="hero-arrow arrow-right" onclick="changeSlide(currentSlide + 1)">＞</div>
 
-  <div class="hero-content">
-    <div class="hero-text">
-      <span class="subtitle">The best options for</span>
-      <h2>定格美好瞬间<br>高端动物定制画</h2>
-      <p>将你心爱的宠物或野生动物照片，化为独特的艺术画作。高端装裱，完美呈现每一个细节。</p>
-      <a href="#products" class="btn-primary">立即开始定制</a>
+  <!-- 第一屏 -->
+  <div class="hero-slide active">
+    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" class="hero-bg" alt="狗狗">
+    <div class="hero-content">
+      <h2>The best options for</h2>
+      <h1>displaying family memories</h1>
+      <p>Create your own Canvas Prints - framed<br>from your cherished animal photos.</p>
+      <a href="#products" class="btn">Create Now</a>
     </div>
-    
-    <div class="hero-image">
-      <!-- 使用了一只狗狗的画作占位，请替换为你的高清画作 -->
-      <img src="https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80" alt="动物定制画作">
+  </div>
+
+  <!-- 第二屏 -->
+  <div class="hero-slide">
+    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" class="hero-bg" alt="猫咪">
+    <div class="hero-content">
+      <h2>One-Stop Online Customize</h2>
+      <h1>高端宠物画作定制</h1>
+      <p>Easily upload your photos to create personalized<br>custom pet artwork in just 3 simple steps.</p>
+      <a href="#products" class="btn">Create Now</a>
     </div>
+  </div>
+
+  <!-- 底部指示器 -->
+  <div class="hero-indicators" id="heroIndicators">
+    <span class="active" onclick="changeSlide(0)"></span>
+    <span onclick="changeSlide(1)"></span>
   </div>
 </div>
 
 <!-- 最受欢迎产品 -->
-<div class="section-container" id="products">
-  <div class="section-title">Most Popular 热门定制</div>
+<div class="section" id="products">
+  <h2 class="section-title">Most Popular</h2>
   <div class="grid">
     <div class="product-card">
-      <div class="thumb">画作图片</div>
-      <div class="name">猫咪水彩肖像定制</div>
-      <div class="price">¥ 199 起</div>
+      <div class="img-box">画作展示</div>
+      <h3>猫咪水彩肖像</h3>
+      <p>完美呈现毛孩子的温柔瞬间</p>
     </div>
     <div class="product-card">
-      <div class="thumb">画作图片</div>
-      <div class="name">狗狗油画肖像定制</div>
-      <div class="price">¥ 259 起</div>
+      <div class="img-box">画作展示</div>
+      <h3>狗狗油画定制</h3>
+      <p>厚涂质感，高端装裱</p>
     </div>
     <div class="product-card">
-      <div class="thumb">画作图片</div>
-      <div class="name">鹦鹉艺术插画</div>
-      <div class="price">¥ 159 起</div>
+      <div class="img-box">画作展示</div>
+      <h3>鹦鹉艺术插画</h3>
+      <p>色彩细腻，生动活泼</p>
     </div>
     <div class="product-card">
-      <div class="thumb">画作图片</div>
-      <div class="name">野生猛兽素描</div>
-      <div class="price">¥ 299 起</div>
+      <div class="img-box">画作展示</div>
+      <h3>猛兽素描系列</h3>
+      <p>大幅面创作，展现野性之美</p>
     </div>
   </div>
 </div>
 
 <!-- 简单三步 -->
-<div class="steps-section">
-  <div class="section-title">Custom Art in 3 Easy Steps<br><span style="font-size: 18px; color:#666;">简单三步，完成定制</span></div>
+<div class="steps-bg" id="steps">
+  <h2 class="section-title">Custom Art in 3 Easy Steps</h2>
   <div class="steps-container">
     <div class="step-item">
-      <div class="step-num">1</div>
-      <h3>选择产品</h3>
-      <p>在众多画风、材质与尺寸中，挑选最适合你的一张。</p>
+      <div class="icon">🖼️</div>
+      <h3>Select a Product</h3>
+      <p>Choose from our wide<br>variety of styles</p>
     </div>
     <div class="step-item">
-      <div class="step-num">2</div>
-      <h3>上传照片</h3>
-      <p>提供您爱宠的高清照片，我们有专业画师为您构图。</p>
+      <div class="icon">📐</div>
+      <h3>Pick Your Size</h3>
+      <p>Small, Medium or Large,<br>the choice is yours</p>
     </div>
     <div class="step-item">
-      <div class="step-num">3</div>
-      <h3>确认与发货</h3>
-      <p>确认画作细节后，我们将进行专业装裱并包邮送达。</p>
+      <div class="icon">📤</div>
+      <h3>Upload and Adjust</h3>
+      <p>Upload your image and<br>make it just right</p>
     </div>
   </div>
 </div>
 
+<!-- 客户评价 -->
+<div class="community" id="community">
+  <h2>Ideas From Our Community</h2>
+  <p class="review">“We are grateful that you took the time out to leave us a review. Your feedback helps us to improve service for everyone”</p>
+  <div class="author">— A Happy Pet Owner</div>
+</div>
+
 <!-- 底部 -->
-<footer class="compact-footer">
-  <div>
-    <a href="#">关于我们</a>
-    <a href="#">定制流程</a>
-    <a href="#">常见问题</a>
-    <a href="mailto:你的邮箱@example.com">联系我们</a>
+<footer class="footer">
+  <div class="footer-nav">
+    <a href="#">About Us</a>
+    <a href="#">Shipping Info</a>
+    <a href="#">FAQ</a>
+    <a href="#">Contact</a>
   </div>
   <div class="copyright">
     © 2026 PetArt Studio. All rights reserved.
@@ -216,42 +232,41 @@
 </a>
 
 <script>
-  // 简单的首屏轮播切换逻辑 (如果你需要首屏像原网站一样有多个幻灯片)
+  // 轮播逻辑
   let currentSlide = 0;
-  const slides = [
-    {
-      subtitle: "The best options for",
-      title: "定格美好瞬间<br>高端动物定制画",
-      desc: "将你心爱的宠物或野生动物照片，化为独特的艺术画作。高端装裱，完美呈现每一个细节。",
-      img: "https://images.unsplash.com/photo-1583337130417-3346a1be7dee?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-    },
-    {
-      subtitle: "Capture the Wild",
-      title: "野性之美<br>野生猛兽系列",
-      desc: "霸气与野性，大幅面油画与素描定制，让自然的力量充满你的房间。",
-      img: "https://images.unsplash.com/photo-1546182990-dffeafbe841d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80"
-    }
-  ];
+  const slides = document.querySelectorAll('.hero-slide');
+  const indicators = document.querySelectorAll('.hero-indicators span');
+  const totalSlides = slides.length;
+  let slideInterval;
 
-  function renderSlide(index) {
-    if (index >= slides.length) currentSlide = 0;
-    else if (index < 0) currentSlide = slides.length - 1;
+  function showSlide(index) {
+    if (index >= totalSlides) currentSlide = 0;
+    else if (index < 0) currentSlide = totalSlides - 1;
     else currentSlide = index;
 
-    const data = slides[currentSlide];
-    document.querySelector('.hero-text .subtitle').innerHTML = data.subtitle;
-    document.querySelector('.hero-text h2').innerHTML = data.title;
-    document.querySelector('.hero-text p').innerHTML = data.desc;
-    document.querySelector('.hero-image img').src = data.img;
+    slides.forEach((slide, i) => {
+      slide.classList.remove('active');
+      indicators[i].classList.remove('active');
+    });
+
+    slides[currentSlide].classList.add('active');
+    indicators[currentSlide].classList.add('active');
   }
 
-  document.querySelector('.arrow-left').addEventListener('click', () => renderSlide(currentSlide - 1));
-  document.querySelector('.arrow-right').addEventListener('click', () => renderSlide(currentSlide + 1));
+  function startSlideShow() {
+    clearInterval(slideInterval);
+    slideInterval = setInterval(() => {
+      showSlide(currentSlide + 1);
+    }, 5000); // 5秒切换
+  }
 
-  // 自动轮播
-  setInterval(() => {
-    renderSlide(currentSlide + 1);
-  }, 5000);
+  function changeSlide(index) {
+    showSlide(index);
+    startSlideShow();
+  }
+
+  // 初始化
+  startSlideShow();
 </script>
 
 </body>
