@@ -12,36 +12,13 @@
   ul { list-style: none; }
 
   /* --- 顶部双层导航栏 --- */
-  .top-bar { 
-    background-color: #f57a8d; 
-    color: #fff; 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    padding: 15px 40px; 
-  }
-  .top-logo { 
-    font-size: 28px; 
-    font-weight: 700; 
-    font-style: italic;
-    font-family: "Georgia", serif;
-    letter-spacing: 1px; 
-  }
+  .top-bar { background-color: #f57a8d; color: #fff; display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; }
+  .top-logo { font-size: 28px; font-weight: 700; font-style: italic; font-family: "Georgia", serif; letter-spacing: 1px; }
   .top-icons { display: flex; align-items: center; gap: 20px; font-size: 14px; font-weight: 500; }
   .top-icons svg { width: 22px; height: 22px; fill: #fff; cursor: pointer; transition: opacity 0.2s; }
   .top-icons svg:hover { opacity: 0.8; }
-  .lang-switch { cursor: pointer; }
-
-  .nav-bar {
-    background-color: #fff;
-    border-bottom: 1px solid #eee;
-    display: flex;
-    justify-content: center;
-    padding: 20px 0;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-  }
+  
+  .nav-bar { background-color: #fff; border-bottom: 1px solid #eee; display: flex; justify-content: center; padding: 20px 0; position: sticky; top: 0; z-index: 100; }
   .nav-menu { display: flex; gap: 50px; font-size: 16px; font-weight: 600; color: #333; }
   .nav-menu a { position: relative; padding-bottom: 5px; }
   .nav-menu a::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: #f57a8d; transition: width 0.3s; }
@@ -49,13 +26,10 @@
 
   /* --- 首屏轮播 Hero --- */
   .hero { position: relative; height: 75vh; min-height: 600px; overflow: hidden; background: #000; }
-  .hero-slide {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    opacity: 0; transition: opacity 1s ease-in-out;
-    display: flex; align-items: center; justify-content: center;
-  }
+  .hero-slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 1s ease-in-out; display: flex; align-items: center; justify-content: center; }
   .hero-slide.active { opacity: 1; z-index: 1; }
   
+  /* 首屏背景图 */
   .hero-slide img.hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
   .hero-slide::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.35); }
 
@@ -64,31 +38,25 @@
   .hero-content h1 { font-size: 56px; line-height: 1.2; margin-bottom: 25px; font-weight: 700; }
   .hero-content p { font-size: 18px; margin-bottom: 40px; font-weight: 300; }
   
-  .btn { 
-    display: inline-block; background: #fff; color: #000; padding: 15px 40px; 
-    font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; 
-    transition: background 0.3s; border-radius: 4px;
-  }
+  .btn { display: inline-block; background: #fff; color: #000; padding: 15px 40px; font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: background 0.3s; border-radius: 4px; }
   .btn:hover { background: #f0f0f0; }
 
   .hero-indicators { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
   .hero-indicators span { width: 50px; height: 3px; background: rgba(255,255,255,0.4); cursor: pointer; transition: background 0.3s; }
   .hero-indicators span.active { background: #fff; }
 
-  .hero-arrow {
-    position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
-    color: #fff; font-size: 40px; cursor: pointer; opacity: 0.6; padding: 20px; user-select: none; font-weight: 300;
-  }
+  .hero-arrow { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; color: #fff; font-size: 40px; cursor: pointer; opacity: 0.6; padding: 20px; user-select: none; font-weight: 300; }
   .hero-arrow:hover { opacity: 1; }
   .arrow-left { left: 20px; }
   .arrow-right { right: 20px; }
 
   /* --- 最受欢迎产品 --- */
-  .section { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
-  .section-title { text-align: center; font-size: 36px; font-weight: 600; margin-bottom: 60px; color: #1a1a1a; }
+  .section { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
+  .section-title { text-align: center; font-size: 36px; font-weight: 600; margin-bottom: 50px; color: #1a1a1a; }
   
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
   .product-card { text-align: center; }
+  /* 产品卡片图片容器 */
   .product-card .img-box { height: 320px; background: #f5f5f5; margin-bottom: 20px; overflow: hidden; display: flex; align-items: center; justify-content: center; color: #999; }
   .product-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
   .product-card:hover img { transform: scale(1.05); }
@@ -96,7 +64,7 @@
   .product-card p { font-size: 15px; color: #888; }
 
   /* --- 3 Steps --- */
-  .steps-bg { background: #fafafa; padding: 100px 20px; }
+  .steps-bg { background: #fafafa; padding: 80px 20px; }
   .steps-container { display: flex; justify-content: space-between; max-width: 1000px; margin: 0 auto; gap: 40px; text-align: center; }
   .step-item { flex: 1; }
   .step-item .icon { font-size: 40px; margin-bottom: 20px; color: #f57a8d; }
@@ -104,58 +72,46 @@
   .step-item p { font-size: 15px; color: #666; line-height: 1.8; }
 
   /* --- 客户评价 --- */
-  .community { text-align: center; max-width: 800px; margin: 0 auto; padding: 100px 20px; }
+  .community { text-align: center; max-width: 800px; margin: 0 auto; padding: 80px 20px; }
   .community h2 { font-size: 32px; font-weight: 600; margin-bottom: 30px; }
   .community p.review { font-size: 22px; line-height: 1.6; color: #444; font-style: italic; margin-bottom: 30px; }
   .community .author { font-size: 14px; text-transform: uppercase; letter-spacing: 2px; color: #888; }
 
-  /* --- 全新底部深色栏 (多列信息 + 二维码) --- */
-  .footer { background: #1a1a1a; color: #b0b0b0; padding: 70px 20px 20px; font-size: 14px; }
-  .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 40px; }
+  /* --- 全新底部深色栏 (收窄版) --- */
+  .footer { background: #1a1a1a; color: #b0b0b0; padding: 60px 20px 20px; font-size: 14px; }
+  /* 将总宽度限制在 1000px，显得更窄、更聚拢 */
+  .footer-inner { max-width: 1000px; margin: 0 auto; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 30px; }
   
-  .footer-col { flex: 1; min-width: 200px; }
-  .footer-col h4 { color: #fff; font-size: 16px; margin-bottom: 25px; font-weight: 600; letter-spacing: 1px; }
+  .footer-col { flex: 1; min-width: 180px; }
+  .footer-col h4 { color: #fff; font-size: 15px; margin-bottom: 20px; font-weight: 600; letter-spacing: 1px; }
   
-  /* 联系信息列表 */
-  .contact-list li { margin-bottom: 15px; display: flex; align-items: flex-start; gap: 10px; }
-  .contact-list .icon { font-size: 16px; margin-top: 2px; }
+  .contact-list li { margin-bottom: 12px; display: flex; align-items: flex-start; gap: 10px; font-size: 13px; }
+  .contact-list .icon { font-size: 15px; margin-top: 2px; }
   .contact-list a:hover { color: #f57a8d; }
 
-  /* 链接列表 */
-  .footer-links li { margin-bottom: 12px; }
+  .footer-links li { margin-bottom: 10px; font-size: 13px; }
   .footer-links a { transition: color 0.3s; }
   .footer-links a:hover { color: #f57a8d; }
 
-  /* 二维码占位 */
   .qr-box { text-align: center; }
-  .qr-placeholder {
-    width: 130px; height: 130px; background: #fff; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 10px; color: #333; font-weight: bold; font-size: 13px;
-    overflow: hidden;
-  }
+  /* 二维码容器尺寸 */
+  .qr-placeholder { width: 120px; height: 120px; background: #fff; border-radius: 6px; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; color: #333; font-weight: bold; font-size: 13px; overflow: hidden; }
   .qr-placeholder img { width: 100%; height: 100%; object-fit: cover; }
   
-  .footer-bottom {
-    text-align: center; padding-top: 30px; margin-top: 50px; border-top: 1px solid #333; font-size: 13px; color: #666;
-  }
+  .footer-bottom { text-align: center; padding-top: 25px; margin-top: 40px; border-top: 1px solid #333; font-size: 12px; color: #666; }
 
   /* 悬浮 WhatsApp */
-  .whatsapp-float {
-    position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
-    background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 100; transition: transform 0.2s;
-  }
+  .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 55px; height: 55px; background: #25d366; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 100; transition: transform 0.2s; }
   .whatsapp-float:hover { transform: scale(1.1); }
-  .whatsapp-float svg { width: 32px; height: 32px; fill: #fff; }
+  .whatsapp-float svg { width: 30px; height: 30px; fill: #fff; }
 
   /* 移动端适配 */
   @media (max-width: 768px) {
     .top-bar { padding: 15px 20px; }
     .nav-menu { gap: 20px; font-size: 14px; overflow-x: auto; padding: 0 20px; white-space: nowrap; }
     .hero-content h1 { font-size: 36px; }
-    .steps-container { flex-direction: column; gap: 50px; }
-    .footer-inner { flex-direction: column; text-align: center; }
+    .steps-container { flex-direction: column; gap: 40px; }
+    .footer-inner { flex-direction: column; text-align: center; gap: 40px; }
     .contact-list li { justify-content: center; }
   }
 </style>
@@ -190,7 +146,8 @@
   <div class="hero-arrow arrow-right" onclick="changeSlide(currentSlide + 1)">＞</div>
 
   <div class="hero-slide active">
-    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" class="hero-bg" alt="狗狗">
+    <!-- 第一屏大背景图：替换 src 里的链接为你自己的图片 -->
+    <img src="https://images.unsplash.com/photo-1543466835-00a7907e9de1?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" class="hero-bg" alt="背景图">
     <div class="hero-content">
       <h2>The best options for</h2>
       <h1>displaying family memories</h1>
@@ -200,7 +157,8 @@
   </div>
 
   <div class="hero-slide">
-    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" class="hero-bg" alt="猫咪">
+    <!-- 第二屏大背景图：替换 src 里的链接为你自己的图片 -->
+    <img src="https://images.unsplash.com/photo-1514888286974-6c03e2ca1dba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80" class="hero-bg" alt="背景图">
     <div class="hero-content">
       <h2>One-Stop Online Customize</h2>
       <h1>高端宠物画作定制</h1>
@@ -219,26 +177,43 @@
 <div class="section" id="products">
   <h2 class="section-title">Most Popular</h2>
   <div class="grid">
+    
     <div class="product-card">
-      <div class="img-box">画作展示</div>
+      <div class="img-box">
+        <!-- 产品图 1：替换 src 里的链接 -->
+        <img src="你的图片链接1.jpg" alt="猫咪水彩">
+      </div>
       <h3>猫咪水彩肖像</h3>
       <p>完美呈现毛孩子的温柔瞬间</p>
     </div>
+
     <div class="product-card">
-      <div class="img-box">画作展示</div>
+      <div class="img-box">
+        <!-- 产品图 2：替换 src 里的链接 -->
+        <img src="你的图片链接2.jpg" alt="狗狗油画">
+      </div>
       <h3>狗狗油画定制</h3>
       <p>厚涂质感，高端装裱</p>
     </div>
+
     <div class="product-card">
-      <div class="img-box">画作展示</div>
+      <div class="img-box">
+        <!-- 产品图 3：替换 src 里的链接 -->
+        <img src="你的图片链接3.jpg" alt="鹦鹉插画">
+      </div>
       <h3>鹦鹉艺术插画</h3>
       <p>色彩细腻，生动活泼</p>
     </div>
+
     <div class="product-card">
-      <div class="img-box">画作展示</div>
+      <div class="img-box">
+        <!-- 产品图 4：替换 src 里的链接 -->
+        <img src="你的图片链接4.jpg" alt="猛兽素描">
+      </div>
       <h3>猛兽素描系列</h3>
       <p>大幅面创作，展现野性之美</p>
     </div>
+
   </div>
 </div>
 
@@ -271,47 +246,41 @@
   <div class="author">— A Happy Pet Owner</div>
 </div>
 
-<!-- 全新底部深色栏 -->
+<!-- 底部深色栏 -->
 <footer class="footer">
   <div class="footer-inner">
-    <!-- 列 1：品牌介绍 -->
-    <div class="footer-col" style="flex: 1.5;">
+    
+    <div class="footer-col" style="flex: 1.2;">
       <h4>PetArt Studio</h4>
-      <p style="margin-bottom: 20px;">专注高端宠物与野生动物定制作画。我们将您珍爱的毛孩子以最艺术的形式定格在画布上，为您的家增添一份独特的温暖。</p>
+      <p style="font-size: 13px;">专注高端宠物与野生动物定制作画。我们将您珍爱的毛孩子以最艺术的形式定格在画布上。</p>
     </div>
 
-    <!-- 列 2：快捷链接 -->
     <div class="footer-col">
       <h4>快捷链接</h4>
       <ul class="footer-links">
         <li><a href="#">关于我们</a></li>
         <li><a href="#">定制流程</a></li>
         <li><a href="#">常见问题</a></li>
-        <li><a href="#">物流与售后</a></li>
       </ul>
     </div>
 
-    <!-- 列 3：联系方式 -->
     <div class="footer-col">
       <h4>联系我们</h4>
       <ul class="contact-list">
         <li><span class="icon">📞</span> <span>+86 138 0000 0000</span></li>
         <li><span class="icon">💬</span> <a href="https://wa.me/你的WhatsApp号码" target="_blank">WhatsApp: +86 138 0000 0000</a></li>
         <li><span class="icon">✉️</span> <a href="mailto:你的邮箱@example.com">你的邮箱@example.com</a></li>
-        <li><span class="icon">📍</span> <span>中国·XX市XX区XX艺术园区 88 号</span></li>
       </ul>
     </div>
 
-    <!-- 列 4：WhatsApp 二维码 -->
     <div class="footer-col qr-box">
       <h4>WhatsApp 客服</h4>
-      <!-- 二维码占位，如果有真实图片，请在下方 img 标签的 src 里填入你的图片地址 -->
       <div class="qr-placeholder">
-        <!-- 如果有图片，把下面这行代码换成：<img src="你的二维码图片链接.png" alt="WhatsApp QR"> -->
-        二维码占位
+        <!-- 二维码图片：将下面这行文字替换为 <img src="你的二维码图片链接.jpg" alt="WhatsApp QR"> -->
+        二维码
       </div>
-      <p style="font-size: 12px; color: #888;">扫码添加客服</p>
     </div>
+
   </div>
 
   <div class="footer-bottom">
@@ -325,7 +294,6 @@
 </a>
 
 <script>
-  // 轮播逻辑
   let currentSlide = 0;
   const slides = document.querySelectorAll('.hero-slide');
   const indicators = document.querySelectorAll('.hero-indicators span');
