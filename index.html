@@ -12,7 +12,7 @@
   /* --- 首屏 Hero 轮播区域 --- */
   .hero {
     position: relative;
-    height: 600px; /* 高度从 500 放大到 600 */
+    height: 600px;
     overflow: hidden;
     background: #9ca4d3;
   }
@@ -26,28 +26,22 @@
     transition: opacity 0.6s ease-in-out;
     pointer-events: none;
   }
-  .hero-slide.active {
-    opacity: 1;
-    pointer-events: auto;
-  }
+  .hero-slide.active { opacity: 1; pointer-events: auto; }
   
-  /* 每一屏的背景色 */
   .slide-bg-1 { background-color: #9ca4d3; }
   .slide-bg-2 { background-color: #e0eaf5; }
   .slide-bg-3 { background-color: #f5e6e6; }
 
-  /* 左右排版比例 */
   .hero-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    max-width: 1200px; /* 整体加宽了一点 */
+    max-width: 1200px;
     width: 100%;
     padding: 0 40px;
     z-index: 2;
   }
   
-  /* 左侧文字区占比缩小，让位给大图 */
   .hero-text { flex: 0 0 40%; color: #fff; }
   .slide-bg-2 .hero-text, .slide-bg-3 .hero-text { color: #333; }
   
@@ -61,25 +55,14 @@
   }
   .hero-btn:hover { background-color: #e65f6d; }
 
-  /* 右侧图片区大幅放大 */
-  .hero-image { 
-    flex: 1; 
-    display: flex; 
-    justify-content: flex-end; 
-    position: relative; 
-  }
+  .hero-image { flex: 1; display: flex; justify-content: flex-end; position: relative; }
   .hero-image img {
-    width: 100%; 
-    max-width: 700px; /* 从 500 放大到 700 */
-    height: 460px;    /* 高度增加到 460 */
-    border-radius: 4px;
-    box-shadow: -20px 25px 50px rgba(0,0,0,0.35); /* 阴影也加重一点，更有立体感 */
+    width: 100%; max-width: 700px; height: 460px;
+    border-radius: 4px; box-shadow: -20px 25px 50px rgba(0,0,0,0.35);
     transform: perspective(1200px) rotateY(-6deg);
-    border: 12px solid #fff; /* 加厚画框边框 */
-    object-fit: cover; 
+    border: 12px solid #fff; object-fit: cover; 
   }
   
-  /* Ultra HD 标识 */
   .ultra-badge {
     position: absolute; top: -25px; left: 0;
     background: #000; color: #fff; border: 2px solid #ff00ff; border-radius: 4px;
@@ -88,7 +71,6 @@
   .ultra-badge div:first-child { font-size: 14px; font-weight: bold; letter-spacing: 1px; }
   .ultra-badge div:last-child { font-size: 26px; font-weight: 900; color: #ffff00; line-height: 1; }
 
-  /* 底部细线条指示器 */
   .hero-dots {
     position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%);
     display: flex; gap: 15px; z-index: 10;
@@ -100,7 +82,6 @@
   .slide-bg-2 ~ .hero-dots span, .slide-bg-3 ~ .hero-dots span { background-color: rgba(0,0,0,0.2); }
   .hero-dots span.active { background-color: #ff6b81 !important; }
 
-  /* 左右大箭头 */
   .hero-arrow {
     position: absolute; top: 50%; transform: translateY(-50%);
     color: rgba(255,255,255,0.6); font-size: 50px; cursor: pointer;
@@ -132,11 +113,42 @@
   .product-card .name { font-size: 16px; font-weight: 500; margin-bottom: 10px; }
   .product-card .price { color: #f67280; font-weight: bold; font-size: 18px; }
 
+  /* --- 简单三步，完成定制 --- */
+  .steps-section { background: #fafafa; padding: 60px 20px; text-align: center; border-top: 1px solid #eee; }
+  .steps-section .section-title { margin-bottom: 40px; }
+  .steps-container { display: flex; justify-content: center; gap: 40px; max-width: 1000px; margin: 0 auto; flex-wrap: wrap; }
+  .step-item { flex: 1; min-width: 200px; position: relative; }
+  /* 连接线 */
+  .step-item:not(:last-child)::after {
+    content: "→";
+    position: absolute;
+    right: -25px;
+    top: 30px;
+    font-size: 24px;
+    color: #ccc;
+  }
+  .step-icon {
+    width: 70px; height: 70px; background: #fff; border: 2px solid #f67280;
+    border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    font-size: 28px; font-weight: bold; color: #f67280; margin: 0 auto 20px;
+    box-shadow: 0 4px 10px rgba(246,114,128,0.15);
+  }
+  .step-item h3 { font-size: 18px; margin-bottom: 10px; color: #333; }
+  .step-item p { font-size: 14px; color: #777; line-height: 1.6; }
+
   /* --- 紧凑版 Footer --- */
   .compact-footer { background: #222; color: #999; padding: 30px 20px; text-align: center; font-size: 14px; line-height: 2; }
   .compact-footer a { color: #ccc; margin: 0 10px; }
   .compact-footer a:hover { color: #fff; }
   .compact-footer .copyright { margin-top: 15px; font-size: 13px; color: #666; }
+  
+  /* 移动端适配 */
+  @media (max-width: 768px) {
+    .hero-content { flex-direction: column; padding-top: 40px; }
+    .hero-text { flex: 1; text-align: center; margin-bottom: 30px; }
+    .hero-image img { height: 300px; transform: none; }
+    .step-item::after { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -235,6 +247,28 @@
         <div class="name">狮子素描定制</div>
         <div class="price">¥ 299</div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- 简单三步，完成定制区 -->
+<div class="steps-section">
+  <div class="section-title">简单三步，完成定制</div>
+  <div class="steps-container">
+    <div class="step-item">
+      <div class="step-icon">1</div>
+      <h3>提供照片</h3>
+      <p>发送你喜欢的宠物高清照片，并告知我们你想要的画风和尺寸。</p>
+    </div>
+    <div class="step-item">
+      <div class="step-icon">2</div>
+      <h3>画师绘制</h3>
+      <p>专业画师根据照片进行艺术创作，期间会与你确认线稿或上色进度。</p>
+    </div>
+    <div class="step-item">
+      <div class="step-icon">3</div>
+      <h3>装裱发货</h3>
+      <p>画作完成后进行专业装裱，采用防震包装，顺丰包邮直达你的手中。</p>
     </div>
   </div>
 </div>
