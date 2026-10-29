@@ -11,19 +11,55 @@
   a { text-decoration: none; color: inherit; }
   ul { list-style: none; }
 
-  /* --- 顶部导航栏 (完全照抄其极简居中布局) --- */
-  .header { 
-    position: absolute; top: 0; left: 0; width: 100%; z-index: 100; 
-    padding: 20px 40px; display: flex; justify-content: space-between; align-items: center;
-    color: #fff; /* 导航文字初始为白色以适应深色大图 */
-    transition: background 0.3s;
+  /* --- 顶部双层导航栏 (完全照抄截图) --- */
+  /* 第一层：粉色顶栏 */
+  .top-bar { 
+    background-color: #f57a8d; /* 截图中的粉色 */
+    color: #fff; 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding: 15px 40px; 
   }
-  .header-logo { font-size: 24px; font-weight: 700; letter-spacing: 1px; }
-  .header-nav { display: flex; gap: 30px; font-size: 14px; font-weight: 500; }
-  .header-nav a:hover { opacity: 0.8; }
+  .top-logo { 
+    font-size: 28px; 
+    font-weight: 700; 
+    font-style: italic;
+    font-family: "Georgia", serif; /* 模仿其优雅的 LOGO 字体 */
+    letter-spacing: 1px; 
+  }
+  .top-icons { 
+    display: flex; 
+    align-items: center; 
+    gap: 20px; 
+    font-size: 14px; 
+    font-weight: 500;
+  }
+  .top-icons svg { width: 22px; height: 22px; fill: #fff; cursor: pointer; transition: opacity 0.2s; }
+  .top-icons svg:hover { opacity: 0.8; }
+  .lang-switch { cursor: pointer; }
 
-  /* --- 首屏轮播 Hero (全屏铺满) --- */
-  .hero { position: relative; height: 90vh; min-height: 600px; overflow: hidden; background: #000; }
+  /* 第二层：白色分类导航 */
+  .nav-bar {
+    background-color: #fff;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: center;
+    padding: 20px 0;
+    position: sticky; /* 滚动时吸顶 */
+    top: 0;
+    z-index: 100;
+  }
+  .nav-menu { display: flex; gap: 50px; font-size: 16px; font-weight: 600; color: #333; }
+  .nav-menu a { position: relative; padding-bottom: 5px; }
+  .nav-menu a::after {
+    content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 2px;
+    background: #f57a8d; transition: width 0.3s;
+  }
+  .nav-menu a:hover::after { width: 100%; }
+
+  /* --- 首屏轮播 Hero --- */
+  .hero { position: relative; height: 75vh; min-height: 600px; overflow: hidden; background: #000; }
   .hero-slide {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
     opacity: 0; transition: opacity 1s ease-in-out;
@@ -31,21 +67,20 @@
   }
   .hero-slide.active { opacity: 1; z-index: 1; }
   
-  /* 背景大图和暗色遮罩，让文字清晰 */
   .hero-slide img.hero-bg { position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover; }
-  .hero-slide::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); }
+  .hero-slide::after { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.35); }
 
   .hero-content { position: relative; z-index: 2; text-align: center; color: #fff; max-width: 800px; padding: 0 20px; }
-  .hero-content h2 { font-size: 18px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; font-weight: 400; }
+  .hero-content h2 { font-size: 16px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 15px; font-weight: 400; }
   .hero-content h1 { font-size: 56px; line-height: 1.2; margin-bottom: 25px; font-weight: 700; }
   .hero-content p { font-size: 18px; margin-bottom: 40px; font-weight: 300; }
   
   .btn { 
     display: inline-block; background: #fff; color: #000; padding: 15px 40px; 
     font-size: 14px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; 
-    transition: background 0.3s; 
+    transition: background 0.3s; border-radius: 4px;
   }
-  .btn:hover { background: #eee; }
+  .btn:hover { background: #f0f0f0; }
 
   /* 底部横线指示器 */
   .hero-indicators { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); display: flex; gap: 10px; z-index: 10; }
@@ -55,13 +90,13 @@
   /* 左右箭头 */
   .hero-arrow {
     position: absolute; top: 50%; transform: translateY(-50%); z-index: 10;
-    color: #fff; font-size: 40px; cursor: pointer; opacity: 0.6; padding: 20px; user-select: none;
+    color: #fff; font-size: 40px; cursor: pointer; opacity: 0.6; padding: 20px; user-select: none; font-weight: 300;
   }
   .hero-arrow:hover { opacity: 1; }
   .arrow-left { left: 20px; }
   .arrow-right { right: 20px; }
 
-  /* --- 最受欢迎产品 (Most Popular) --- */
+  /* --- 最受欢迎产品 --- */
   .section { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
   .section-title { text-align: center; font-size: 36px; font-weight: 600; margin-bottom: 60px; color: #1a1a1a; }
   
@@ -73,15 +108,15 @@
   .product-card h3 { font-size: 20px; font-weight: 500; margin-bottom: 10px; color: #333; }
   .product-card p { font-size: 15px; color: #888; }
 
-  /* --- 3 Steps 区块 (照抄其简单的布局) --- */
+  /* --- 3 Steps --- */
   .steps-bg { background: #fafafa; padding: 100px 20px; }
   .steps-container { display: flex; justify-content: space-between; max-width: 1000px; margin: 0 auto; gap: 40px; text-align: center; }
   .step-item { flex: 1; }
-  .step-item .icon { font-size: 40px; margin-bottom: 20px; color: #d96c4a; }
+  .step-item .icon { font-size: 40px; margin-bottom: 20px; color: #f57a8d; }
   .step-item h3 { font-size: 20px; margin-bottom: 15px; font-weight: 600; }
   .step-item p { font-size: 15px; color: #666; line-height: 1.8; }
 
-  /* --- 客户评价 Community --- */
+  /* --- 客户评价 --- */
   .community { text-align: center; max-width: 800px; margin: 0 auto; padding: 100px 20px; }
   .community h2 { font-size: 32px; font-weight: 600; margin-bottom: 30px; }
   .community p.review { font-size: 22px; line-height: 1.6; color: #444; font-style: italic; margin-bottom: 30px; }
@@ -103,8 +138,10 @@
   .whatsapp-float:hover { transform: scale(1.1); }
   .whatsapp-float svg { width: 32px; height: 32px; fill: #fff; }
 
+  /* 移动端适配 */
   @media (max-width: 768px) {
-    .header-nav { display: none; }
+    .top-bar { padding: 15px 20px; }
+    .nav-menu { gap: 20px; font-size: 14px; overflow-x: auto; padding: 0 20px; white-space: nowrap; }
     .hero-content h1 { font-size: 36px; }
     .steps-container { flex-direction: column; gap: 50px; }
   }
@@ -112,16 +149,29 @@
 </head>
 <body>
 
-<!-- 顶部导航 (浮在首屏上面) -->
-<header class="header">
-  <div class="header-logo">PetArt.</div>
-  <nav class="header-nav">
-    <a href="#products">热门定制</a>
-    <a href="#steps">定制流程</a>
-    <a href="#community">客户反馈</a>
-    <a href="mailto:你的邮箱@example.com">联系我们</a>
-  </nav>
-</header>
+<!-- 第一层：粉色顶栏 -->
+<div class="top-bar">
+  <div class="top-logo">PetArt</div>
+  <div class="top-icons">
+    <span class="lang-switch">ENG</span>
+    <!-- 用户图标 -->
+    <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+    <!-- 购物车图标 -->
+    <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+  </div>
+</div>
+
+<!-- 第二层：白色导航栏 -->
+<div class="nav-bar">
+  <div class="nav-menu">
+    <a href="#">首页</a>
+    <a href="#">猫咪定制</a>
+    <a href="#">狗狗定制</a>
+    <a href="#">鸟类插画</a>
+    <a href="#">猛兽系列</a>
+    <a href="#">专业服务</a>
+  </div>
+</div>
 
 <!-- 首屏轮播 -->
 <div class="hero">
@@ -135,7 +185,7 @@
       <h2>The best options for</h2>
       <h1>displaying family memories</h1>
       <p>Create your own Canvas Prints - framed<br>from your cherished animal photos.</p>
-      <a href="#products" class="btn">Create Now</a>
+      <a href="#" class="btn">Create Now</a>
     </div>
   </div>
 
@@ -146,7 +196,7 @@
       <h2>One-Stop Online Customize</h2>
       <h1>高端宠物画作定制</h1>
       <p>Easily upload your photos to create personalized<br>custom pet artwork in just 3 simple steps.</p>
-      <a href="#products" class="btn">Create Now</a>
+      <a href="#" class="btn">Create Now</a>
     </div>
   </div>
 
@@ -257,7 +307,7 @@
     clearInterval(slideInterval);
     slideInterval = setInterval(() => {
       showSlide(currentSlide + 1);
-    }, 5000); // 5秒切换
+    }, 5000);
   }
 
   function changeSlide(index) {
@@ -265,7 +315,6 @@
     startSlideShow();
   }
 
-  // 初始化
   startSlideShow();
 </script>
 
