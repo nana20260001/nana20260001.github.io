@@ -137,6 +137,47 @@
   .footer-note {
     text-align: center; font-size: 12px; color: #999; padding: 12px 0 24px;
   }
+  /* --- 常见问题 FAQ 样式 --- */
+  .faq-section { margin: 40px 0; }
+  .faq-title { text-align: center; color: #1a3b66; font-size: 24px; font-weight: bold; margin-bottom: 20px; }
+  .faq-item { background: #fff; margin-bottom: 10px; border-radius: 4px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
+  .faq-question {
+    padding: 15px 20px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center;
+    background: #f9f9f9; transition: background 0.3s;
+  }
+  .faq-question:hover { background: #f0f0f0; }
+  .faq-question::before { content: "︿"; color: #666; margin-right: 10px; font-size: 12px; transition: transform 0.3s; }
+  .faq-item.active .faq-question::before { transform: rotate(180deg); }
+  .faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #fff; color: #555; font-size: 14px; line-height: 1.6; }
+  .faq-item.active .faq-answer { padding: 15px 20px; max-height: 200px; border-top: 1px solid #eee; }
+
+  /* --- 全新的专业 Footer 样式 --- */
+  .pro-footer { background: #1a1a1a; color: #999; font-size: 13px; line-height: 1.8; margin-top: 40px; }
+  .footer-top-links { text-align: center; padding: 15px 0; border-bottom: 1px solid #333; }
+  .footer-top-links a { color: #999; text-decoration: none; margin: 0 10px; display: inline-block; }
+  .footer-top-links a:hover { color: #fff; }
+  .footer-main { max-width: 1100px; margin: 0 auto; padding: 40px 16px; display: flex; flex-wrap: wrap; gap: 30px; justify-content: space-between; }
+  .footer-col { flex: 1; min-width: 200px; }
+  .footer-col h4 { color: #fff; font-size: 15px; margin-bottom: 15px; font-weight: normal; }
+  
+  .footer-brand { font-size: 24px; font-weight: bold; color: #fff; margin-bottom: 10px; }
+  .footer-brand span { color: #e5a928; } /* 类似 logo 的黄色点缀 */
+  .footer-desc { margin-bottom: 15px; }
+  .footer-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+  .footer-badges span { border: 1px solid #555; padding: 2px 8px; border-radius: 2px; font-size: 12px; color: #ccc; }
+  
+  .footer-links-list { list-style: none; padding: 0; margin: 0; }
+  .footer-links-list li { margin-bottom: 8px; }
+  .footer-links-list a { color: #999; text-decoration: none; }
+  .footer-links-list a:hover { color: #e5a928; }
+  
+  .footer-contact-item { margin-bottom: 10px; display: flex; align-items: flex-start; gap: 8px; }
+  .footer-contact-item a { color: #999; text-decoration: none; }
+  .footer-contact-item a:hover { color: #fff; }
+
+  .footer-bottom { background: #111; padding: 15px 0; font-size: 12px; }
+  .footer-bottom-inner { max-width: 1100px; margin: 0 auto; padding: 0 16px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+  .footer-bottom-inner a { color: #999; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -147,156 +188,104 @@
 
 <div class="container">
 
-  <div class="carousel" id="carousel">
-    <div class="carousel-track" id="track">
-      <div class="carousel-slide slide-1">🐱 猫咪定制作画</div>
-      <div class="carousel-slide slide-2">🐶 狗狗定制肖像</div>
-      <div class="carousel-slide slide-3">🦁 野生猛兽系列</div>
+  <!-- 常见问题 -->
+  <div class="container faq-section">
+    <div class="faq-title">常見問題</div>
+    
+    <div class="faq-item active">
+      <div class="faq-question">定制作画需要提供什么样的照片？</div>
+      <div class="faq-answer">建议提供清晰、光线充足的宠物正面照片。如果有喜欢的特定姿势或多张照片供参考，也请一并发送，我们会挑选最适合绘制的一张。</div>
     </div>
-    <div class="carousel-dots" id="dots"></div>
-  </div>
-
-  <div class="section-title">🔍 按动物分类挑选</div>
-  <div class="filter-bar" id="filterBar">
-    <button class="filter-btn active" data-cat="all">全部</button>
-    <button class="filter-btn" data-cat="cat">🐱 猫</button>
-    <button class="filter-btn" data-cat="dog">🐶 狗</button>
-    <button class="filter-btn" data-cat="bird">🐦 鸟</button>
-    <button class="filter-btn" data-cat="wild">🦁 野生猛兽</button>
-    <button class="filter-btn" data-cat="small">🐹 小宠</button>
-  </div>
-
-    <div class="section-title">🔥 热门定制</div>
-  <div class="scroll-row">
-    <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">猫咪水彩肖像</div><div class="price">¥ 199</div></div></div>
-    <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">狗狗油画定制</div><div class="price">¥ 259</div></div></div>
-    <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">鹦鹉插画</div><div class="price">¥ 159</div></div></div>
-    <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">狮子素描</div><div class="price">¥ 299</div></div></div>
-    <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">仓鼠小像</div><div class="price">¥ 129</div></div></div>
-  </div>
-
-  <div class="section-title">🛍️ 全部作品</div>
-  <div class="grid" id="productGrid">
-    <!-- 猫 -->
-    <div class="product-card" data-cat="cat">
-      <div class="thumb">作品图</div>
-      <div class="info">
-        <div class="name">猫咪水彩肖像定制</div>
-        <div class="desc">根据照片绘制，A4 装裱</div>
-        <div class="price">¥ 199</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询猫咪水彩肖像">立即定制</a>
-      </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">一幅画大概需要多长时间？</div>
+      <div class="faq-answer">常规尺寸（如 A4）的水彩或彩铅作品通常需要 7-10 个工作日；大幅面或油画定制可能需要 15-20 天。如有急单需求，请联系客服加急处理。</div>
     </div>
-    <div class="product-card" data-cat="cat">
-      <div class="thumb">作品图</div>
-      <div class="info">
-        <div class="name">多猫家庭合影定制</div>
-        <div class="desc">2-4 只猫同框，水彩风格</div>
-        <div class="price">¥ 329</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询多猫合影定制">立即定制</a>
-      </div>
-    </div>
-
-    <!-- 狗 -->
-    <div class="product-card" data-cat="dog">
-      <div class="thumb">作品图</div>
-      <div class="info">
-        <div class="name">狗狗油画肖像定制</div>
-        <div class="desc">厚涂油画质感，含画框</div>
-        <div class="price">¥ 259</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询狗狗油画肖像">立即定制</a>
-      </div>
-    </div>
-    <div class="product-card" data-cat="dog">
-      <div class="thumb">作品图</div>
-      <div class="info">
-        <div class="name">狗狗卡通头像</div>
-        <div class="desc">Q 版卡通风格，适合做头像</div>
-        <div class="price">¥ 99</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询狗狗卡通头像">立即定制</a>
-      </div>
-    </div>
-
-    <!-- 鸟 -->
-    <div class="product-card" data-cat="bird">
-      <div class="thumb">作品图</div>
-      <div class="info">
-        <div class="name">鹦鹉插画定制</div>
-        <div class="desc">细腻线稿 + 上色，A4 尺寸</div>
-        <div class="price">¥ 159</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询鹦鹉插画定制">立即定制</a>
-      </div>
-    </div>
-    <div class="product-card" data-cat="bird">
-      <div class="thumb">作品图</div>
-      <div class="info">
-        <div class="name">小型观赏鸟肖像</div>
-        <div class="desc">写实风格，可加背景</div>
-        <div class="price">¥ 139</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询观赏鸟肖像">立即定制</a>
-      </div>
-    </div>
-
-    <!-- 野生猛兽 -->
-    <div class="product-card" data-cat="wild">
-      <div class="thumb">作品图</div>
-      <div class="info">
-        <div class="name">狮子素描定制</div>
-        <div class="desc">炭笔素描，大幅面可选</div>
-        <div class="price">¥ 299</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询狮子素描定制">立即定制</a>
-      </div>
-    </div>
-    <div class="product-card" data-cat="wild">
-      <div class="thumb">作品图</div>
-      <div class="info">
-        <div class="name">老虎水彩定制</div>
-        <div class="desc">霸气虎纹，水彩晕染风格</div>
-        <div class="price">¥ 319</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询老虎水彩定制">立即定制</a>
-      </div>
-    </div>
-
-    <!-- 小宠 -->
-    <div class="product-card" data-cat="small">
-      <div class="thumb">作品图</div>
-      <div class="info">
-        <div class="name">仓鼠小像定制</div>
-        <div class="desc">迷你尺寸，适合桌面摆放</div>
-        <div class="price">¥ 129</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询仓鼠小像定制">立即定制</a>
-      </div>
-    </div>
-    <div class="product-card" data-cat="small">
-      <div class="thumb">作品图</div>
-      <div class="info">
-        <div class="name">兔子水彩肖像</div>
-        <div class="desc">温柔色调，可加姓名</div>
-        <div class="price">¥ 149</div>
-        <a class="btn" href="mailto:你的邮箱@example.com?subject=咨询兔子水彩肖像">立即定制</a>
-      </div>
+    
+    <div class="faq-item">
+      <div class="faq-question">画作完成后会装裱吗？如何发货？</div>
+      <div class="faq-answer">所有纸质画作均默认提供基础装裱（含相框和亚克力面板）。我们会使用防震防潮的专业包装发货，确保画作安全送达。</div>
     </div>
   </div>
 
-  <div class="empty-tip" id="emptyTip">这个分类下暂时没有作品，试试其他分类吧。</div>
-
-</div>
-
-<footer>
-  <div class="contact-box">
-    <div class="contact-item">
-      <div class="qr-placeholder">邮箱二维码</div>
-      <p>邮箱咨询</p>
-      <a href="mailto:你的邮箱@example.com">你的邮箱@example.com</a>
+  <!-- 全新底部 -->
+  <footer class="pro-footer">
+    <!-- 顶部横向链接 -->
+    <div class="footer-top-links">
+      <a href="#">服务条款</a> |
+      <a href="#">隐私政策</a> |
+      <a href="#">客户服务</a> |
+      <a href="#">常见问题</a> |
+      <a href="#">订购指引</a> |
+      <a href="#">联系我们</a>
     </div>
-    <div class="contact-item">
-      <div class="qr-placeholder">WhatsApp二维码</div>
-      <p>WhatsApp 联系</p>
-      <a href="https://wa.me/你的WhatsApp号码" target="_blank" rel="noopener">点击跳转 WhatsApp</a>
+
+    <!-- 中间主要内容 -->
+    <div class="footer-main">
+      <!-- 列1：品牌信息 -->
+      <div class="footer-col" style="flex: 1.5;">
+        <div class="footer-brand">PetArt<span>.studio</span></div>
+        <p class="footer-desc">专注宠物与野生动物定制作画，拥有多年经验的画师团队。我们致力于将您珍爱的毛孩子或喜欢的动物，以最艺术的形式定格在画布上。</p>
+        <div class="footer-badges">
+          <span>纯手工绘制</span>
+          <span>环保画材</span>
+          <span>顺丰包邮</span>
+          <span>不满意重画</span>
+        </div>
+      </div>
+
+      <!-- 列2：产品分类 -->
+      <div class="footer-col">
+        <h4>产品分类</h4>
+        <ul class="footer-links-list">
+          <li><a href="#">关于我们</a></li>
+          <li><a href="#">猫咪定制</a></li>
+          <li><a href="#">狗狗定制</a></li>
+          <li><a href="#">鸟类插画</a></li>
+          <li><a href="#">野生猛兽</a></li>
+          <li><a href="#">小宠肖像</a></li>
+        </ul>
+      </div>
+
+      <!-- 列3：客户服务 -->
+      <div class="footer-col">
+        <h4>客户服务</h4>
+        <ul class="footer-links-list">
+          <li><a href="#">定制流程</a></li>
+          <li><a href="#">尺寸与材质</a></li>
+          <li><a href="#">装裱指南</a></li>
+          <li><a href="#">物流说明</a></li>
+          <li><a href="#">售后政策</a></li>
+          <li><a href="#">画作保养</a></li>
+        </ul>
+      </div>
+
+      <!-- 列4：联系资料 -->
+      <div class="footer-col" style="flex: 1.2;">
+        <h4>联络资料</h4>
+        <div class="footer-contact-item">
+          <span>📞</span> <span>+86 138 0000 0000</span>
+        </div>
+        <div class="footer-contact-item">
+          <span>💬</span> <a href="https://wa.me/你的WhatsApp号码" target="_blank">WhatsApp: +86 138 0000 0000</a>
+        </div>
+        <div class="footer-contact-item">
+          <span>✉️</span> <a href="mailto:你的邮箱@example.com">你的邮箱@example.com</a>
+        </div>
+        <div class="footer-contact-item">
+          <span>📍</span> <span>中国·XX市XX区XX艺术园区 88 号</span>
+        </div>
+      </div>
     </div>
-  </div>
-  <p class="footer-note">© 2026 动物定制作画 · 本站为展示页，下单请通过邮件或 WhatsApp 联系</p>
-</footer>
+
+    <!-- 最底部版权 -->
+    <div class="footer-bottom">
+      <div class="footer-bottom-inner">
+        <div>© 2026 PetArt Studio 版权所有. All rights reserved.</div>
+        <div><a href="#">网站地图</a></div>
+      </div>
+    </div>
+  </footer>
 
 <script>
   // 轮播
