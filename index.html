@@ -59,13 +59,14 @@
   .empty-tip { display: none; text-align: center; color: #999; padding: 40px 0; font-size: 14px; }
 
   /* 常见问题 FAQ */
-  .faq-section { margin: 40px 0; }
+  .faq-section { margin: 40px auto; max-width: 1100px; padding: 0 16px; }
   .faq-title { text-align: center; color: #1a3b66; font-size: 24px; font-weight: bold; margin-bottom: 20px; }
   .faq-item { background: #fff; margin-bottom: 10px; border-radius: 4px; overflow: hidden; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-  .faq-question { padding: 15px 20px; font-weight: bold; cursor: pointer; display: flex; justify-content: space-between; align-items: center; background: #f9f9f9; transition: background 0.3s; }
+  .faq-question { padding: 15px 20px; font-weight: bold; cursor: pointer; display: flex; align-items: center; background: #f9f9f9; transition: background 0.3s; }
   .faq-question:hover { background: #f0f0f0; }
-  .faq-question::before { content: "︿"; color: #666; margin-right: 10px; font-size: 12px; transition: transform 0.3s; }
+  .faq-question::before { content: "﹀"; color: #666; margin-right: 10px; font-size: 14px; transition: transform 0.3s; display: inline-block; }
   .faq-item.active .faq-question::before { transform: rotate(180deg); }
+  .faq-question span { flex: 1; text-align: center; margin-right: 24px; }
   .faq-answer { padding: 0 20px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: #fff; color: #555; font-size: 14px; line-height: 1.6; }
   .faq-item.active .faq-answer { padding: 15px 20px; max-height: 200px; border-top: 1px solid #eee; }
 
@@ -96,13 +97,14 @@
 </head>
 <body>
 
-<!-- 公告 -->
+<!-- 顶部公告 -->
 <div class="notice-bar">
   <span>🎨 动物定制作画 · 来图定制你喜欢的动物 · 支持猫、狗、鸟、野生猛兽等分类 · 下单前请先联系客服确认细节</span>
 </div>
 
 <!-- 商品区 -->
 <div class="container">
+  <!-- 轮播图 -->
   <div class="carousel" id="carousel">
     <div class="carousel-track" id="track">
       <div class="carousel-slide slide-1">🐱 猫咪定制作画</div>
@@ -112,6 +114,7 @@
     <div class="carousel-dots" id="dots"></div>
   </div>
 
+  <!-- 分类筛选 -->
   <div class="section-title">🔍 按动物分类挑选</div>
   <div class="filter-bar" id="filterBar">
     <button class="filter-btn active" data-cat="all">全部</button>
@@ -122,14 +125,17 @@
     <button class="filter-btn" data-cat="small">🐹 小宠</button>
   </div>
 
+  <!-- 热门推荐 -->
   <div class="section-title">🔥 热门定制</div>
   <div class="scroll-row">
     <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">猫咪水彩肖像</div><div class="price">¥ 199</div></div></div>
     <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">狗狗油画定制</div><div class="price">¥ 259</div></div></div>
     <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">鹦鹉插画</div><div class="price">¥ 159</div></div></div>
     <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">狮子素描</div><div class="price">¥ 299</div></div></div>
+    <div class="mini-card"><div class="thumb">作品图</div><div class="info"><div class="name">仓鼠小像</div><div class="price">¥ 129</div></div></div>
   </div>
 
+  <!-- 全部作品 -->
   <div class="section-title">🛍️ 全部作品</div>
   <div class="grid" id="productGrid">
     <div class="product-card" data-cat="cat">
@@ -177,6 +183,15 @@
         <a class="btn" href="mailto:你的邮箱@example.com">立即定制</a>
       </div>
     </div>
+    <div class="product-card" data-cat="bird">
+      <div class="thumb">作品图</div>
+      <div class="info">
+        <div class="name">小型观赏鸟肖像</div>
+        <div class="desc">写实风格，可加背景</div>
+        <div class="price">¥ 139</div>
+        <a class="btn" href="mailto:你的邮箱@example.com">立即定制</a>
+      </div>
+    </div>
     <div class="product-card" data-cat="wild">
       <div class="thumb">作品图</div>
       <div class="info">
@@ -218,18 +233,21 @@
 </div>
 
 <!-- 常见问题 FAQ -->
-<div class="container faq-section">
+<div class="faq-section">
   <div class="faq-title">常見問題</div>
+  
   <div class="faq-item active">
-    <div class="faq-question">定制作画需要提供什么样的照片？</div>
+    <div class="faq-question"><span>定制作画需要提供什么样的照片？</span></div>
     <div class="faq-answer">建议提供清晰、光线充足的宠物正面照片。如果有喜欢的特定姿势或多张照片供参考，也请一并发送，我们会挑选最适合绘制的一张。</div>
   </div>
+  
   <div class="faq-item">
-    <div class="faq-question">一幅画大概需要多长时间？</div>
+    <div class="faq-question"><span>一幅画大概需要多长时间？</span></div>
     <div class="faq-answer">常规尺寸（如 A4）的水彩或彩铅作品通常需要 7-10 个工作日；大幅面或油画定制可能需要 15-20 天。如有急单需求，请联系客服加急处理。</div>
   </div>
+  
   <div class="faq-item">
-    <div class="faq-question">画作完成后会装裱吗？如何发货？</div>
+    <div class="faq-question"><span>画作完成后会装裱吗？如何发货？</span></div>
     <div class="faq-answer">所有纸质画作均默认提供基础装裱（含相框和亚克力面板）。我们会使用防震防潮的专业包装发货，确保画作安全送达。</div>
   </div>
 </div>
